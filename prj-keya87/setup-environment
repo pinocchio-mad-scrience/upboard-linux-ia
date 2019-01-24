@@ -1,0 +1,12 @@
+#!/bin/sh
+
+export TEMPLATECONF=../prj-keya87/conf/
+source ./poky/oe-init-build-env $1
+
+if [ -f ../prj-keya87/conf/site.conf ]; then
+    echo "Adding site.conf to build configuration."
+    cp ../prj-keya87/conf/site.conf conf >/dev/null 2>&1
+else
+    echo -e "\nsite.conf does not exist\n"
+fi
+

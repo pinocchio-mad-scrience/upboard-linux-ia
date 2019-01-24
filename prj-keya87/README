@@ -1,0 +1,5 @@
+The Keya87 AI Yocto project.
+Currently based on Yocto Project 2.4.1
+Supported machines are: generic-x86-64
+Supported Images are: core-image-minimal core-image-sato 
+
