@@ -15,37 +15,43 @@ texinfo gcc-multilib build-essential chrpath socat libsdl1.2-dev xterm
 
 To get the project you need to have git clone next projects:
 
-#git clone git://git.yoctoproject.org/poky.git
+git clone git://git.yoctoproject.org/poky.git
 
-#git checkout c2b641c8a0c4fd71fcb477d788a740c2c26cddce
+git checkout c2b641c8a0c4fd71fcb477d788a740c2c26cddce
 
-#git branch -a
+git branch -a
 
-#git clone git://git.yoctoproject.org/meta-intel.git
+git clone git://git.yoctoproject.org/meta-intel.git
 
-#cd meta-intel
+cd meta-intel
 
-#git checkout 5adbf6df4fd89e7531ccccfb9cec7a5314d635f0
+git checkout 5adbf6df4fd89e7531ccccfb9cec7a5314d635f0
 
-#git clone git://git.openembedded.org/meta-openembedded.git
+git clone git://git.openembedded.org/meta-openembedded.git
 
-#cd meta-openembedded
+cd meta-openembedded
 
-#git checkout 6e3fc5b8d904d06e3aa77e9ec9968ab37a798188
+git checkout 6e3fc5b8d904d06e3aa77e9ec9968ab37a798188
 
-#git clone https://github.com/pinocchio-mad-scrience/upboard-yocto-ia.git
+git clone https://github.com/pinocchio-mad-scrience/upboard-yocto-ia.git
+
+git clone git://github.com/meta-qt5/meta-qt5.git
+
+cd meta-qt5
+
+git checkout 7a52f924a0298857db99be20aca1484bb2b4e163
 
 A. To compile and build a simple image on Linux distribution from the source directory:
 
-#export TEMPLATECONF=/home/[username]/[poky_dir]/prj-keya/conf 
+export TEMPLATECONF=/home/[username]/[poky_dir]/prj-keya/conf 
 
-#source setup-enviroment 
+source setup-enviroment 
 
-#bitbake core-image-minimal
+bitbake core-image-minimal
 
 B. To compile and build a full image on Linux distribution from the source directory:
 
-#export TEMPLATECONF=/home/[username]/[poky_dir]/prj-keya/conf 
+export TEMPLATECONF=/home/[username]/[poky_dir]/prj-keya/conf 
 
-#bitbake upboard-image-sato
+bitbake upboard-image-sato
 
