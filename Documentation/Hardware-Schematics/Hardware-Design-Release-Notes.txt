@@ -1,0 +1,13 @@
+*********************************************************
+* Personal Robot Assistant Hardware/Electronic/Mechanic *
+*         Intel Robotics Dev Kit - AAEON UPBOARD        *
+*                   Release Notes                       *
+*********************************************************
+
+Upload Date: 01/25/2019
+- Android Hardware Full Setup - Version 1.0
+- Head Hardware Schematic - Version 1.0
+- Android Hardware Schematic Setup - Version - 3.0
+- Android Hardware Schematic Setup - Version - 2.0
+- Android Hardware Schematic Setup - Version - 1.0
+- Android Hardware Schematic Setup - Version - 0.5
