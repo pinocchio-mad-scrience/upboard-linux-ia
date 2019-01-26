@@ -2,7 +2,7 @@ SUMMARY = " Intel Robotics Dev Kit - AAEON UPBOARD development image"
 
 LICENSE = "MIT"
 
-CREDIT = "https://github.com/jumpnow/meta-rpi/tree/rocko for image packages"
+CREDIT = "https://github.com/jumpnow/meta-rpi/tree/rocko for image packages order"
 
 IMAGE_FEATURES += "package-management"
 IMAGE_LINGUAS = "en-us"
@@ -17,6 +17,7 @@ IMAGE_INSTALL += " \
 CORE_OS = " \
     kernel-modules \
     packagegroup-core-boot \
+    packagegroup-core-buildessential \
     tzdata \
 "
 
@@ -27,6 +28,8 @@ WIFI_SUPPORT = " \
 "
 
 DEV_SDK_INSTALL = " \
+    curl \
+    curl-dev \
     binutils \
     binutils-symlinks \
     coreutils \
@@ -45,7 +48,9 @@ DEV_SDK_INSTALL = " \
     ldd \
     libstdc++ \
     libstdc++-dev \
+    libsqlite3-dev \
     libtool \
+    cmake \
     make \
     pkgconfig \
     python3-modules \
@@ -71,14 +76,21 @@ EXTRA_TOOLS_INSTALL = " \
     zip \
 "
 
+ALSA += " \
+    libasound \
+    alsa-conf \
+    alsa-state \
+    alsa-utils \
+    alsa-utils-scripts \
+ "
+
 IMAGE_INSTALL += " \
     ${CORE_OS} \
+    ${ALSA} \
     ${DEV_SDK_INSTALL} \
     ${EXTRA_TOOLS_INSTALL} \
     ${WIFI_SUPPORT} \
 "
-
-
 
 # X11 Font support
 IMAGE_INSTALL_append = " \
@@ -90,18 +102,14 @@ IMAGE_INSTALL_append = " \
 # QT5 basic support packages
 IMAGE_INSTALL_append = " \
          packagegroup-qt5-graphics \
-         packagegroup-core-x11-base \
-         jpeg \
          mesa \
          mesa-demos \
          xclock \
-         twm \
          xterm \
 "
+
+IMAGE_INSTALL_append = " packagegroup-core-x11-xserver packagegroup-core-x11-utils dbus mini-x-session twm"
 
 # X11 keyboard and mouse support
 IMAGE_INSTALL_append = " xf86-input-keyboard xf86-input-mouse"
 
-#PACKAGE_EXCLUDE = " \
-#       neard \
-#"
