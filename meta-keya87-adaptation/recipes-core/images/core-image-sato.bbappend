@@ -2,7 +2,7 @@ SUMMARY = " Intel Robotics Dev Kit - AAEON UPBOARD development image"
 
 LICENSE = "MIT"
 
-CREDIT = "https://github.com/jumpnow/meta-rpi/tree/rocko for image packages order"
+CREDIT = "https://github.com/jumpnow/meta-rpi/tree/rocko for image packages"
 
 IMAGE_FEATURES += "package-management"
 IMAGE_LINGUAS = "en-us"
@@ -12,6 +12,16 @@ IMAGE_INSTALL += " \
     opkg \
     procps \
     iproute2 \
+    autoconf \
+    automake \
+    libtool \
+    python \
+    python3 \
+    python3-cython \
+    python3-dev \
+    python-setuptools \
+    libxml2-dev \
+    libev-dev \
 "
 
 CORE_OS = " \
@@ -28,6 +38,8 @@ WIFI_SUPPORT = " \
 "
 
 DEV_SDK_INSTALL = " \
+    json-glib \
+    json-c \
     curl \
     curl-dev \
     binutils \
@@ -56,6 +68,8 @@ DEV_SDK_INSTALL = " \
     python3-modules \
 "
 EXTRA_TOOLS_INSTALL = " \
+    gtest \
+    gtest-dev \
     bzip2 \
     devmem2 \
     dosfstools \
@@ -78,6 +92,7 @@ EXTRA_TOOLS_INSTALL = " \
 
 ALSA += " \
     libasound \
+    alsa-lib-dev \
     alsa-conf \
     alsa-state \
     alsa-utils \
@@ -101,6 +116,7 @@ IMAGE_INSTALL_append = " \
 
 # QT5 basic support packages
 IMAGE_INSTALL_append = " \
+         packagegroup-core-x11-base \
          packagegroup-qt5-graphics \
          mesa \
          mesa-demos \

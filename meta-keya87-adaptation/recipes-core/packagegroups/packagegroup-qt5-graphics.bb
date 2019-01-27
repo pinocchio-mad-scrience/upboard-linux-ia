@@ -1,9 +1,10 @@
 DESCRIPTION = "qt5 graphics"
 LICENSE = "MIT"
 
-inherit packagegroup
+inherit packagegroup autotools
 
 RDEPENDS_${PN} = " \
+                 packagegroup-qt5-toolchain-target \
                  qtbase \
                  qtbase-plugins \
                  qtbase-tools \
@@ -17,7 +18,6 @@ RDEPENDS_${PN} = " \
 "
 # Development packages 
 # Add if needed 
-# packagegroup-qt5-toolchain-target
 # qtbase-dev 
 # qtbase-mkspecs 
 # qtdeclarative-dev 
