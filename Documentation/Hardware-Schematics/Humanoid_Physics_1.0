@@ -1,0 +1,21 @@
+
+
+The robot will stand on a havorboard which will be controlled by two big servo motors.
+
+In offline recharge state the IA will stand with the whole body and head on floor. 
+When a command is received the robot must come online and rise up. 
+
+Interaction with the real environment :
+
+Move forward, backward, left, right, 180° turn left/right, 360° turn left/right
+
+Move hands using three servo motors for each hand:
+- One for hand circle movement
+- One for elbow complex movement
+- One for shoulder complex movement
+
+Head connector to chest will have two servo motors which must communicate one with each other in order to define all type of movement:up, down, left, right and anybcombinations of these commands.
+
+Head system will be compose of two step motors:
+- One for mouth moving up and down when speaking 
+- One to controll both eyes using a gear transmission when blinking 
