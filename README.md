@@ -8,8 +8,20 @@ UBUNTU-14.04, UBUNTU-16.04
 GCC compiler recommended version 
 gcc-7.2.0-r0
 
+Target Features:
+- Basic Yocto interface
+- Boot from USB/Install on EMMC
+- Power on using a power bank 5V/2.4 A
+- USB WIFI/Audio Mic-Out
+- ETH0 Internet connection
+- USB stick and external HDD 
+- Improved audio/video quality using QT5
+- Mouse and Kerboard
+- Gcc and G++ on target compiler
+- Most of Linux distribution library's and packages
+
 Linux distribution build enviroment:
-#sudo apt-get install gawk wget git-core diffstat unzip \ 
+sudo apt-get install gawk wget git-core diffstat unzip \ 
 
 texinfo gcc-multilib build-essential chrpath socat libsdl1.2-dev xterm
 
