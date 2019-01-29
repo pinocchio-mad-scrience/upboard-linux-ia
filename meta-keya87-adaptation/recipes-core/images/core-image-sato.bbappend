@@ -9,6 +9,7 @@ IMAGE_LINGUAS = "en-us"
 
 IMAGE_INSTALL += " \
     packagegroup-utils \
+    chromium-x11 \
     opkg \
     procps \
     iproute2 \
@@ -22,6 +23,7 @@ IMAGE_INSTALL += " \
     python-setuptools \
     libxml2-dev \
     libev-dev \
+    doxygen \
 "
 
 CORE_OS = " \
@@ -38,6 +40,7 @@ WIFI_SUPPORT = " \
 "
 
 DEV_SDK_INSTALL = " \
+    nghttp2 \
     json-glib \
     json-c \
     curl \
@@ -120,6 +123,7 @@ IMAGE_INSTALL_append = " \
          packagegroup-qt5-graphics \
          mesa \
          mesa-demos \
+         metacity \
          xclock \
          xterm \
 "

@@ -9,10 +9,14 @@ BBLAYERS ?= " \
   ##OEROOT##/meta \
   ##OEROOT##/meta-poky \
   ##OEROOT##/meta-yocto-bsp \
-  ##OEROOT##/../meta-keya87-bsp \ 
-  ##OEROOT##/../meta-keya87-adaptation \                 
-  ##OEROOT##/../meta-openembedded/meta-oe \ 
-  ##OEROOT##/../meta-openembedded/meta-python \   
+  ##OEROOT##/../meta-keya87-bsp \
+  ##OEROOT##/../meta-keya87-adaptation \
+  ##OEROOT##/../meta-openembedded/meta-oe \
+  ##OEROOT##/../meta-openembedded/meta-python \
+  ##OEROOT##/../meta-openembedded/meta-gnome \
+  ##OEROOT##/../meta-openembedded/meta-networking \
+  ##OEROOT##/../meta-rust \
+  ##OEROOT##/../meta-browser \
   ##OEROOT##/../meta-intel \
   ##OEROOT##/../meta-qt5 \
   " 

@@ -13,6 +13,8 @@
 
 #GCCVERSION = "6.3.0"
 
+LICENSE_FLAGS_WHITELIST="commercial"
+
 #
 # Machine Selection
 #

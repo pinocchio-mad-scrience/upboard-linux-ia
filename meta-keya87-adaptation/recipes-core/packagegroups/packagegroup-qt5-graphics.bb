@@ -5,6 +5,7 @@ inherit packagegroup autotools
 
 RDEPENDS_${PN} = " \
                  packagegroup-qt5-toolchain-target \
+                 gstreamer1.0-libav \
                  qtbase \
                  qtbase-plugins \
                  qtbase-tools \
