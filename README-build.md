@@ -1,4 +1,6 @@
-Yocto host build environment 
+
+Yocto host build environment for upboard-yocto-ia
+=============================================
 
 Linux distribution recommended:
 UBUNTU-14.04, UBUNTU-16.04
@@ -8,9 +10,15 @@ gcc-7.2.0
 
 Linux distribution build enviroment:
 sudo apt-get install gawk wget git-core diffstat unzip \ 
+
 texinfo gcc-multilib build-essential chrpath socat libsdl1.2-dev xterm
 
 To get the project you need to have git clone next projects:
+
+Core layer
+git clone https://github.com/pinocchio-mad-scrience/upboard-yocto-ia.git
+
+Depends on layers
 
 git clone git://git.yoctoproject.org/poky.git
 
@@ -30,13 +38,15 @@ cd meta-openembedded
 
 git checkout 6e3fc5b8d904d06e3aa77e9ec9968ab37a798188
 
-git clone https://github.com/pinocchio-mad-scrience/upboard-yocto-ia.git
-
 git clone git://github.com/meta-qt5/meta-qt5.git
 
 cd meta-qt5
 
 git checkout 7a52f924a0298857db99be20aca1484bb2b4e163
+
+git clone git://github.com/meta-rust/meta-rust
+
+git clone git://github.com/OSSystems/meta-browser.git
 
 A. To compile and build a simple image on Linux distribution from the source directory:
 
