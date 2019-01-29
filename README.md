@@ -1,10 +1,16 @@
 
+# AAERON UPBOARD - Intelligent Assistant (IA)
+### ---------------------------Yocto Community project---------------------------
 
-#[AAERON UPBOARD] - Yocto - Community Intelligent Assistant (IA)
-
+*************************************************************************
+### Description:
 Personal Robot Assistant with Artificial Intelligence develop using Intel Robotics Dev Kit
 
-Features:
+### Getting Started 
+
+[Yocto host build environment for upboard-yocto-ia](https://github.com/pinocchio-mad-scrience/upboard-yocto-ia/blob/master/README-build.md)
+
+### Features:
 - Basic Yocto interface
 - Boot from USB/Install on EMMC
 - Power on using a power bank 5V/2.4 A
