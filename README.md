@@ -21,3 +21,9 @@ Personal Robot Assistant with Artificial Intelligence develop using Intel Roboti
 - Mouse and Kerboard
 - Gcc and G++ on target compiler
 - Most of Linux distribution library's and packages included in the image
+
+### Support 
+Facebook: https://www.facebook.com/Keya87/ 
+
+Email: mititelu.catalin21@gmail.com
+
