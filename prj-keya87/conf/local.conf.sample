@@ -11,10 +11,6 @@
 # the option is a question of removing the # character and making any change to the
 # variable as required.
 
-#GCCVERSION = "6.3.0"
-
-LICENSE_FLAGS_WHITELIST="commercial"
-
 #
 # Machine Selection
 #
@@ -272,21 +268,28 @@ VIRTUAL-RUNTIME_login_manager = "busybox"
 VIRTUAL-RUNTIME_initscripts = "initscripts"
 VIRTUAL-RUNTIME_keymaps = "keymaps"
 
+LICENSE_FLAGS_WHITELIST="commercial"
+
+HOSTTOOLS += "x86_64-linux-gnu-gcc"
+
+# Audio features
+DISTRO_FEATURES_append = " pulseaudio "
+DISTRO_FEATURES_append = " alsa "
+
+# Firefox features
+DISTRO_FEATURES_append = "wayland glx egl openmax webgl anvas-gpu stylo webrtc"
+
 # Removing not needed distro features
-DISTRO_FEATURES_remove = "alsa"
-DISTRO_FEATURES_remove = "pulseaudio"
 DISTRO_FEATURES_remove = "bluetooth"
 DISTRO_FEATURES_remove = "bluez4"
 DISTRO_FEATURES_remove = "bluez5"
 DISTRO_FEATURES_remove = "irda"
 DISTRO_FEATURES_remove = "3g"
 DISTRO_FEATURES_remove = "nfc"
-DISTRO_FEATURES_remove = "wayland"
 MACHINE_FEATURES_remove = "apm"
 
-IMAGE_FSTYPES += "hddimg tar.gz ext4"
+IMAGE_FSTYPES += "hddimg"
 NOISO ="1"
 NOHDD = "0"
-
 
 INHERIT += "rm_work"

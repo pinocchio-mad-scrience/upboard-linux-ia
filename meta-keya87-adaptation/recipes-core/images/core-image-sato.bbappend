@@ -9,7 +9,7 @@ IMAGE_LINGUAS = "en-us"
 
 IMAGE_INSTALL += " \
     packagegroup-utils \
-    chromium-x11 \
+    firefox \
     opkg \
     procps \
     iproute2 \
@@ -25,6 +25,8 @@ IMAGE_INSTALL += " \
     libev-dev \
     doxygen \
 "
+
+IMAGE_INSTALL_remove += "rust-nativ"
 
 CORE_OS = " \
     kernel-modules \
@@ -132,4 +134,6 @@ IMAGE_INSTALL_append = " packagegroup-core-x11-xserver packagegroup-core-x11-uti
 
 # X11 keyboard and mouse support
 IMAGE_INSTALL_append = " xf86-input-keyboard xf86-input-mouse"
+
+PACKAGE_EXCLUD = "rust-native"
 
