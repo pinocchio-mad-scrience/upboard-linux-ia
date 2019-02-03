@@ -1,0 +1,7 @@
+System design
+This system use two operating platforms:
+A. One UPBOARD with Ubuntu 18.04 distrubution
+B. One UPBOARD with Yocto Linux distribution
+The two boards will be connected using a local network connection and transfer data from one to each other.
+C. The boards will have an android application that will control the interaction and movement of the robot.
+D. The MCU will control the main board and reset the platform when it is stucked.Ft
