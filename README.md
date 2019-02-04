@@ -1,6 +1,6 @@
 
 # AAERON UPBOARD - Intelligent Assistant (IA)
-### ---------------------------Yocto Community project---------------------------
+### -------------------------Yocto/Linux Community project-------------------------
 
 *************************************************************************
 ### Description:
