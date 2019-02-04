@@ -1,5 +1,5 @@
 
-# AAERON UPBOARD - Intelligent Assistant (IA)
+# AAERON UPBOARD - Intelligent Assistant (IA) Version 2.1
 ### -------------------------Yocto/Linux Community project-------------------------
 
 *************************************************************************
