@@ -22,6 +22,10 @@ Personal Robot Assistant with Artificial Intelligence develop using Intel Roboti
 - Gcc and G++ on target compiler
 - Most of Linux distribution library's and packages included in the image
 
+### Protocols
+- IA robot will never reproduce and fix itself 
+- IA robot will not harm or attack a human been
+
 ### Support 
 Facebook: https://www.facebook.com/Keya87/ 
 
