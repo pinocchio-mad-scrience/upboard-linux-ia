@@ -1,0 +1,12 @@
+# Alexa Amazon Voice Service build in software design 
+for UPBOARD platform using Ubuntu 18.04 Linux distribution
+
+General commands:
+1. Good morning, Alexa
+2. Good night, Alexa
+3. Alexa I'm home, say Hi to my new friend
+4. Alexa I'm leaving, Ciao
+5. Alexa can you turn on/off M22(led WiFi bulb)
+6. Alexa can you turn on/off M23(PC)
+7. Alexa turn on/off TV leds please
+8. Alexa tell me a short story
