@@ -4,6 +4,9 @@
 *                   Release Notes                       *
 *********************************************************
 
+Upload Date: 03/02/2019 
+- IA System Design - Version 1.0
+
 Upload Date: 01/25/2019
 - Android Hardware Full Setup - Version 1.0
 - Head Hardware Schematic - Version 1.0
