@@ -1,5 +1,5 @@
 
-# AAERON UPBOARD - Intelligent Assistant (IA) Version 2.1
+# AAERON UPBOARD - Intelligent Assistant (IA) Version 2.2
 ### -------------------------Yocto/Linux Community project-------------------------
 
 *************************************************************************
@@ -23,6 +23,7 @@ Personal Robot Assistant with Artificial Intelligence develop using Intel Roboti
 
 ### Features:
 - Basic Yocto interface
+- Amazon Alexa Voice Service 
 - Boot from USB/Install on EMMC
 - Power on using a power bank 5V/2.4 A
 - USB WIFI/Audio Mic-Out
