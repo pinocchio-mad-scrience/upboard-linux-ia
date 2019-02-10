@@ -1,0 +1,19 @@
+Alexa speak recognition software to mechanic version 1.0
+
+Precondition: Start from iddle state
+
+Case A
+1. User speak to IA
+> IA received the audio mic feed
+2. Mouth motors start when Alexa speaks
+> The motors depending on the lenght of the audio out feed will go up and down on the axe, always returning in the start position
+
+Case B
+1. Other type of IA interaction(Android, continue speaking routine etc) 
+2. Mouth motors start when Alexa speaks
+> The motors depending on the lenght of the audio out feed will  start going up and down on the axe, always returning in the start position
+
+Case C
+1. Alexa emotion interaction (scream, sad, happy)
+2. Mouth motors start when Alexa receives the emotion command
+> The motors depending on the emotion type will start goinf up and down on the axe, always returning in the start position
