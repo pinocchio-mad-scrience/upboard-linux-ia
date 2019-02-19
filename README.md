@@ -8,7 +8,9 @@ Personal Robot Assistant with Artificial Intelligence develop using Intel Roboti
 
 ### Getting Started 
 
-[Yocto host build environment for upboard-yocto-ia](https://github.com/pinocchio-mad-scrience/upboard-yocto-ia/blob/master/README-build.md)
+[Yocto build host environment for upboard-yocto-ia](https://github.com/pinocchio-mad-scrience/upboard-yocto-ia/blob/master/README-build.md)
+
+[Ubuntu Alexa Voice Service build and run environment for upboard-yocto-ia](https://github.com/pinocchio-mad-scrience/upboard-yocto-ia/blob/master/ubuntu/avs_scripts/AVS_setup.txt)
 
 ### Operating systems
 
