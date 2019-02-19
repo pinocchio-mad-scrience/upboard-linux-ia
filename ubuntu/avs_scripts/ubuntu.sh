@@ -21,16 +21,17 @@ fi
 
 SOUND_CONFIG="$HOME/.asoundrc"
 START_SCRIPT="$INSTALL_BASE/startsample.sh"
-CMAKE_PLATFORM_SPECIFIC=(-DSENSORY_KEY_WORD_DETECTOR=OFF \
+CMAKE_PLATFORM_SPECIFIC=(-DKITTAI_KEY_WORD_DETECTOR=ON \
+    -DSENSORY_KEY_WORD_DETECTOR=OFF \
     -DGSTREAMER_MEDIA_PLAYER=ON -DPORTAUDIO=ON \
     -DPORTAUDIO_LIB_PATH="$THIRD_PARTY_PATH/portaudio/lib/.libs/libportaudio.$LIB_SUFFIX" \
-    -DPORTAUDIO_INCLUDE_DIR="$THIRD_PARTY_PATH/portaudio/include") 
-
-# Comment out because of SDK licence not available 
-#    -DSENSORY_KEY_WORD_DETECTOR_LIB_PATH=$THIRD_PARTY_PATH/alexa-rpi/lib/libsnsr.a \
-#    -DSENSORY_KEY_WORD_DETECTOR_INCLUDE_DIR=$THIRD_PARTY_PATH/alexa-rpi/include)
+    -DPORTAUDIO_INCLUDE_DIR="$THIRD_PARTY_PATH/portaudio/include" \
+    -DKITTAI_KEY_WORD_DETECTOR_LIB_PATH="$THIRD_PARTY_PATH/snowboy/lib/ubuntu64/libsnowboy-detect.a" \
+    -DKITTAI_KEY_WORD_DETECTOR_INCLUDE_DIR="$THIRD_PARTY_PATH/snowboy/include")
 
 GSTREAMER_AUDIO_SINK="alsasink"
+NGHTTP2_DIR="nghttp2"
+KITTAI_DIR="$THIRD_PARTY_PATH/snowboy/resources"
 
 install_dependencies() {
   sudo apt-get update
@@ -38,8 +39,8 @@ install_dependencies() {
   make binutils autoconf automake autotools-dev libtool \
   pkg-config zlib1g-dev libcunit1-dev libssl-dev libxml2-dev libev-dev \
   libevent-dev libjansson-dev libjemalloc-dev cython python3-dev \
-  python-setuptools portaudio19-dev libgtest-dev \
-#  sudo ln -s /usr/lib/libcurl.so.4 /usr/local/lib/ 
+  python-setuptools portaudio19-dev libgtest-dev openjdk-8-jdk \
+  python-pyaudio python3-pyaudio sox libatlas-base-dev && pip install pyaudio
 }
 
 run_os_specifics() {
@@ -73,13 +74,31 @@ EOF
 build_kwd_engine() {
   #get sensory and build
   echo
-  echo "==============> CLONING AND BUILDING SENSORY =============="
+  echo "==============> CLONING AND BUILDING KittAI =============="
   echo
 
   cd $THIRD_PARTY_PATH
-  git clone git://github.com/Sensory/alexa-rpi.git
-# Comment out because of SDK licence not available 
-#  bash ./alexa-rpi/bin/license.sh
+  git clone git://github.com:Kitt-AI/snowboy.git
+
+  #Compile a supported swig version (3.0.10 or above)
+  wget http://downloads.sourceforge.net/swig/swig-3.0.10.tar.gz
+  sudo apt-get install libpcre3 libpcre3-dev
+  ./configure --prefix=/usr                  \
+        --without-clisp                    \
+        --without-maximum-compile-warnings &&
+  make
+  make install &&
+  install -v -m755 -d /usr/share/doc/swig-3.0.10 &&
+  cp -v -R Doc/* /usr/share/doc/swig-3.0.10
+  
+
+  # Copy necessary files to model dir
+  cd $KITTAI_RS/alexa/alexa-avs-sample-app
+  cp alexa.umdl $KITTAI_RES/models
+  cd $KITTAI_RES
+  cp common.res $KITTAI_RES/models
+  cd $KITTAI_RES
+  cp *.wav $KITTAI_RES/models
 }
 
 build_nghttp2() {
@@ -88,6 +107,10 @@ build_nghttp2() {
   echo "==============> CLONING AND BUILDING NGHTTP2 =============="
   echo
 
+if [ -e "$NGHTTP2_DIR" ]
+ then
+ echo "======'nghttp2' already exists and is not an empty directory ====SKIP===="
+else
  cd $THIRD_PARTY_PATH
  git clone https://github.com/tatsuhiro-t/nghttp2.git
 
@@ -99,6 +122,8 @@ build_nghttp2() {
 
  make
  sudo make install
+
+fi
 }
 
 configure_nghttp2() {
@@ -106,7 +131,10 @@ configure_nghttp2() {
   echo
   echo "==============> CONFIGURE NGHTTP2 =============="
   echo
-
+if [ -e "$NGHTTP2_DIR" ]
+ then
+ echo "======'nghttp2' already exists and is not an empty directory ====SKIP===="
+else
  cd $THIRD_PARTY_PATH
  wget http://curl.haxx.se/download/curl-7.54.0.tar.bz2
  tar -xvjf curl-7.54.0.tar.bz2 
@@ -117,13 +145,20 @@ configure_nghttp2() {
  make
  sudo make install
 
- sudo ldconfig   
+ #Unlink symbolic link if exist
+ sudo unlink /usr/local/lib/libcurl.so.4
+
+ #Make symbolic link for libcurl
+ sudo ln -fs /usr/lib/libcurl.so.4 /usr/local/lib/
+ sudo ldconfig
+fi
+
 }
 
 generate_start_script() {
   cat << EOF > "$START_SCRIPT"
   cd "$BUILD_PATH/SampleApp/src"
 
-  ./SampleApp "$OUTPUT_CONFIG_FILE" "$THIRD_PARTY_PATH/alexa-rpi/models" DEBUG9
+  ./SampleApp "$OUTPUT_CONFIG_FILE" "$KITTAI_RES/snowboy/resources/models" DEBUG9
 EOF
 }

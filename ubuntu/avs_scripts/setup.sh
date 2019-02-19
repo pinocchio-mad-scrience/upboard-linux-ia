@@ -202,8 +202,6 @@ else
   exit 1
 fi
 
-
-
 install_dependencies
 
   # create / paths
@@ -215,12 +213,13 @@ install_dependencies
   mkdir -p $THIRD_PARTY_PATH
   mkdir -p $SOUNDS_PATH
   mkdir -p $DB_PATH
-  mkdir -p ${SOURCE_PATH}/avs-device-sdk
   
   run_os_specifics
 
-  if [ -d "${SOURCE_PATH}/avs-device-sdk" ]
-  then
+  if [ -e "${SOURCE_PATH}/avs-device-sdk" ]
+then
+    echo "======'avs-device-sdk' already exists and is not an empty directory ====SKIP===="
+else
     #get sdk
     echo
     echo "==============> CLONING SDK =============="
@@ -228,7 +227,11 @@ install_dependencies
 
     cd $SOURCE_PATH
     git clone --single-branch $CLONE_URL avs-device-sdk
-  fi
+
+    # Workaround for cxx11 Kitt-AI KEY WORD DETECTOR compile
+    cd ${SOURCE_PATH}/avs-device-sdk
+    sed -i '2iadd_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)' CMakeLists.txt
+ fi
 
   # make the SDK
   echo
@@ -237,7 +240,7 @@ install_dependencies
 
   mkdir -p $BUILD_PATH
 
-  if [ -d "$BUILD_PATH" ]
+  if [ -e "$BUILD_PATH" ]
   then
 
   # Make sure required packages are installed
