@@ -41,5 +41,5 @@ Personal Robot Assistant with Artificial Intelligence develop using Intel Roboti
 ### Support 
 Facebook: https://www.facebook.com/Keya87/ 
 
-Email: mititelu.catalin21@gmail.com
+Email: pinocchio.madscience@gmail.com
 
