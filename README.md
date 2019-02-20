@@ -1,5 +1,5 @@
 
-# AAERON UPBOARD - Intelligent Assistant (IA) Version 2.3
+# AAERON UPBOARD - Intelligent Assistant (IA) Version 2.4
 ### -------------------------Yocto/Linux Community project-------------------------
 
 *************************************************************************
@@ -15,32 +15,33 @@ Personal Robot Assistant with Artificial Intelligence develop using Intel Roboti
 ### Operating systems
 
 1. Ubuntu 18.04 LTS Linux distribution
-- Video HD broadcast, Camera recording and data analyze 
-- Local network communication with second OS 
+- Video HD Broadcast, Camera Recording,Buffering and Data Analyze 
+- Local Network Communication with Second OS 
 - Boot from SSD
-2. Yocto Linux distribution 
-- Motors controll, Hand calibration, 1 second fast boot
-- Local network communication with first OS, 
-- Power management controll 
+2. Yocto Linux Custom Distribution 
+- Motors Control, Hand Calibration, 1 second FASTBOOT
+- Local Network Communication with First OS, 
+- Power Management Control
 
 ### Features:
 - Basic Yocto interface
 - Amazon Alexa Voice Service with KITT.ai Third-Party Wake Word Detector and Key Word Detector (KWD) 
+- Leap Motion and Leap Motion Developer Kit
 - Boot from USB/Install on EMMC
-- Power on using a power bank 5V/2.4 A
+- Power ON using a Power Bank 5V/2.4 A
 - USB WIFI/Audio Mic-Out
-- ETH0 Internet connection
-- USB stick and external HDD 
-- Improved audio/video quality using QT5
+- ETH0 Internet Connection
+- USB Mass Storage and External HDD 
+- Improved Audio/Video Quality using QT5, Messa and X11
 - Mouse and Kerboard
-- Gcc and G++ on target compiler
+- Gcc and G++ on Target Compiler
 - Most of Linux distribution library's and packages included in the image
 
 ### Protocols
 - IA robot will never reproduce and fix itself on
 - IA robot will not harm or attack a human been
 
-### Support 
+### Support & Social Media
 Facebook: https://www.facebook.com/Keya87/ 
 
 Email: pinocchio.madscience@gmail.com
