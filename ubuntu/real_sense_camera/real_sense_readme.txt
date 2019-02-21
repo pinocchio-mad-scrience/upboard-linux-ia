@@ -1,0 +1,31 @@
+                       # Real Sense basic start and install information
+
+
+A. Install application
+
+sudo ./real_sense_setup.sh
+
+Linux Distribution
+Using pre-build packages
+
+Intel® RealSense™ SDK 2.0 provides installation packages in dpkg format for Ubuntu 16/18 LTS.
+The Realsense DKMS kernel drivers package (librealsense2-dkms) supports Ubuntu LTS kernels 4.4, 4.10, 4.13 and 4.15. Please refer to Ubuntu Kernel Release Schedule for further details.
+Configuring and building from the source code
+
+While we strongly recommend to use DKMS package whenever possible, there are certain cases where installing and patching the system manually is necessary:
+
+    Using SDK with linux kernel version 4.16+
+    Integration of user-specific patches/modules with librealsense SDK.
+    Adjusting the patches for alternative kernels/distributions.
+
+The steps are described in Linux manual installation guide
+
+# If you have issues with install dependencies please follow this link
+# https://github.com/IntelRealSense/librealsense/blob/development/doc/distribution_linux.md
+
+B. Run Application
+
+Reconnect the Intel RealSense depth camera and run: realsense-viewer to verify the installation.
+
+Verify that the kernel is updated :
+modinfo uvcvideo | grep "version:" should include realsense string
