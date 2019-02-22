@@ -1,0 +1,37 @@
+                       # Openvino basic start and install information
+
+A. Install application
+
+1. Register and download Linux installer from https://software.intel.com/en-us/openvino-toolkit/choose-download/free-download-linux
+2. Copy to .sh file and .tgz file to a specific folder
+3. sudo ./openvino_setup.sh
+4. Follow up instructions shown in order for complete install
+
+============This message should be displayed at the end======================
+
+
+"First Part of Installation is Complete
+--------------------------------------------------------------------------------
+The first part of Intel® Distribution of OpenVINO™ toolkit 2018 R5.0.1 for
+Linux* has been successfully installed in 
+/opt/intel/computer_vision_sdk_2018.5.455.
+
+ADDITIONAL STEPS STILL REQUIRED: 
+
+Open the Installation guide at:
+https://software.intel.com/en-us/articles/openvino-install-linux 
+and follow the guide instructions to complete the remaining tasks listed below:
+
+ • Configure Model Optimizer 
+ • Set Environment variables 
+ • Run Demos to verify and compile samples"
+
+# If you have issues with install dependencies please follow this link
+# https://software.intel.com/en-us/articles/OpenVINO-Install-Linux#Install-Dependencies
+
+============================================================================
+B. For developing you need to run next command before starting any of the Openvino tools
+
+source /opt/intel/computer_vision_sdk/bin/setupvars.sh
+
+
