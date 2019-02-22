@@ -49,3 +49,10 @@ When you run the sample app for the first time, you'll need to authorize your cl
     #   https://github.com/alexa/avs-device-sdk/wiki/Raspberry-Pi-Quick-Start-Guide-with-Script   #  
     #                                                                                             #
     ###############################################################################################
+
+
+	D. Auto-start AVS after Ubuntu login
+
+1. Open "lxterminal.desktop" file from res directory
+2. Modify the Exec parameter with the correct path to the startsample.sh
+3. Copy from res folder file "lxterminal.desktop" to /home/unix_user/.config/autostart
