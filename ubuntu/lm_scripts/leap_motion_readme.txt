@@ -5,7 +5,7 @@ A. Install application
 
 1. Download Linux installer from https://www.leapmotion.com/setup/desktop/linux/
 2. Copy to .sh file and .tgz file to a specific folder
-3. sudo ./leap_modtion_setup.sh
+3. sudo ./leap_motion_setup.sh
 
 
 # Note #
