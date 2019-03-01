@@ -29,3 +29,7 @@ Reconnect the Intel RealSense depth camera and run: realsense-viewer to verify t
 
 Verify that the kernel is updated :
 modinfo uvcvideo | grep "version:" should include realsense string
+
+C. For Firmware update, follow next link instructions:
+https://www.intel.com/content/dam/support/us/en/documents/emerging-technologies/intel-realsense-technology/Linux-RealSense-D400-DFU-Guide.pdf
+
