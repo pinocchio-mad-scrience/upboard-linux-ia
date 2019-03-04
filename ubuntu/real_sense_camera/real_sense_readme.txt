@@ -1,4 +1,4 @@
-                       # Real Sense basic start and install information
+                       # RealSense basic start and install information
 
 
 A. Install application
@@ -22,6 +22,7 @@ The steps are described in Linux manual installation guide
 
 # If you have issues with install dependencies please follow this link
 # https://github.com/IntelRealSense/librealsense/blob/development/doc/distribution_linux.md
+# https://github.com/intel-ros/realsense
 
 B. Run Application
 
