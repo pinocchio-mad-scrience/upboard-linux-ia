@@ -1,0 +1,13 @@
+                       # Upboard extra hw features start and install information
+
+
+Enable the hardware functionality from userspace
+
+To be able to use the GPIO, PWM, SPI, I2C and uart functionality with a normal user we created a ubuntu package that set the correct permission.
+
+sudo ./up_extras_setup.sh
+
+
+# If you have issues with install dependencies please follow this link
+# https://wiki.up-community.org/Ubuntu
+
