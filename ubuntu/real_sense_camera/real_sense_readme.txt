@@ -3,7 +3,12 @@
 
 A. Install application
 
-sudo ./real_sense_setup.sh
+----------------IMPORTANT -----------------
+On some boards setup will stuck you're system
+Please also run next script in another terminal while running the setup
+
+sudo ./tools/free_ram.sh - first terminal
+sudo ./real_sense_setup.sh -> second terminal
 
 Linux Distribution
 Using pre-build packages

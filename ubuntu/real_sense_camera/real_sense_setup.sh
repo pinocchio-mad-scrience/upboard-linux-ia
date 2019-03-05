@@ -26,11 +26,16 @@ source /opt/ros/melodic/setup.bash
 
 sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
 
-# Install Intel RealSense ROS from Sources
+# Init workspace
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/src/
 catkin_init_workspace
 cd ..
+
+# Install Intel RealSense ROS & RVIZ from Sources
+git clone https://github.com/ros-visualization/rviz.git
+rosdep install rviz
+
 catkin_make clean
 catkin_make -DCATKIN_ENABLE_TESTING=False -DCMAKE_BUILD_TYPE=Release
 catkin_make install
