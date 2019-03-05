@@ -29,11 +29,15 @@ sudo apt install python-rosinstall python-rosinstall-generator python-wstool bui
 # Init workspace
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/src/
+git clone https://github.com/ros-visualization/rviz.git
+git clone https://github.com/intel/ros_object_analytics
+git clone https://github.com/intel/object_msgs.git
 catkin_init_workspace
 cd ..
 
 # Install Intel RealSense ROS & RVIZ from Sources
-git clone https://github.com/ros-visualization/rviz.git
+rosdep install object_analytics
+rosdep install object_msgs
 rosdep install rviz
 
 catkin_make clean

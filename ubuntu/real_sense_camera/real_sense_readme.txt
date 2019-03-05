@@ -7,7 +7,7 @@ A. Install application
 On some boards setup will stuck you're system
 Please also run next script in another terminal while running the setup
 
-sudo ./tools/free_ram.sh - first terminal
+sudo ./tools/free_ram.sh -> first terminal
 sudo ./real_sense_setup.sh -> second terminal
 
 Linux Distribution
@@ -29,13 +29,14 @@ The steps are described in Linux manual installation guide
 # https://github.com/IntelRealSense/librealsense/blob/development/doc/distribution_linux.md
 # https://github.com/intel-ros/realsense
 
-B. Run Application
-
-Reconnect the Intel RealSense depth camera and run: realsense-viewer to verify the installation.
-
-Verify that the kernel is updated :
-modinfo uvcvideo | grep "version:" should include realsense string
-
-C. For Firmware update, follow next link instructions:
+B. For Firmware update, follow next link instructions:
 https://www.intel.com/content/dam/support/us/en/documents/emerging-technologies/intel-realsense-technology/Linux-RealSense-D400-DFU-Guide.pdf
+
+C. Run Application
+
+1. Reconnect the Intel RealSense depth camera and run: realsense-viewer to verify the installation.
+2. Startup RVIZ
+
+roscore & -> first terminal
+rosrun rviz rviz -> second terminal
 
