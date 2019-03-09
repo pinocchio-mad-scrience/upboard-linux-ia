@@ -31,7 +31,7 @@ CMAKE_PLATFORM_SPECIFIC=(-DKITTAI_KEY_WORD_DETECTOR=ON \
 
 GSTREAMER_AUDIO_SINK="alsasink"
 NGHTTP2_DIR="nghttp2"
-KITTAI_DIR="$THIRD_PARTY_PATH/snowboy/resources"
+KITTAI_RES="$THIRD_PARTY_PATH/snowboy/resources"
 
 install_dependencies() {
   sudo apt-get update
@@ -40,7 +40,7 @@ install_dependencies() {
   pkg-config zlib1g-dev libcunit1-dev libssl-dev libxml2-dev libev-dev \
   libevent-dev libjansson-dev libjemalloc-dev cython python3-dev \
   python-setuptools portaudio19-dev libgtest-dev openjdk-8-jdk \
-  python-pyaudio python3-pyaudio sox libatlas-base-dev && pip install pyaudio
+  python-pyaudio python3-pyaudio sox libatlas-base-dev python3-pip python-pip && pip install pyaudio
 }
 
 run_os_specifics() {
@@ -78,10 +78,12 @@ build_kwd_engine() {
   echo
 
   cd $THIRD_PARTY_PATH
-  git clone git://github.com:Kitt-AI/snowboy.git
+ # git clone git://github.com:Kitt-AI/snowboy.git
 
   #Compile a supported swig version (3.0.10 or above)
   wget http://downloads.sourceforge.net/swig/swig-3.0.10.tar.gz
+  tar -xvf swig-3.0.10.tar.gz
+  cd swig-3.0.10
   sudo apt-get install libpcre3 libpcre3-dev
   ./configure --prefix=/usr                  \
         --without-clisp                    \
@@ -93,7 +95,7 @@ build_kwd_engine() {
   
 
   # Copy necessary files to model dir
-  cd $KITTAI_RS/alexa/alexa-avs-sample-app
+  cd $KITTAI_RES/alexa/alexa-avs-sample-app
   cp alexa.umdl $KITTAI_RES/models
   cd $KITTAI_RES
   cp common.res $KITTAI_RES/models
