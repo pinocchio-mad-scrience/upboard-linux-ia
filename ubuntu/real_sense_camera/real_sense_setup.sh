@@ -20,6 +20,7 @@ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main
 sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
 sudo apt update
 sudo apt install -y ros-melodic-desktop-full
+sudo apt install ros-melodic-opencv*
 sudo rosdep init
 rosdep update
 source /opt/ros/melodic/setup.bash
@@ -32,13 +33,22 @@ cd ~/catkin_ws/src/
 git clone https://github.com/ros-visualization/rviz.git
 git clone https://github.com/intel/ros_object_analytics
 git clone https://github.com/intel/object_msgs.git
+git clone https://github.com/ros/ros_comm.git
+git clone https://github.com/ros/std_msgs.git
+git clone https://github.com/ros/common_msgs.git
+git clone https://github.com/ros-perception/perception_pcl
+git clone https://github.com/ros-perception/vision_opencv.git
+
 catkin_init_workspace
+sed -i '62ifind_package(OpenCV)' CMakeLists.txt
 cd ..
 
 # Install Intel RealSense ROS & RVIZ from Sources
 rosdep install object_analytics
 rosdep install object_msgs
 rosdep install rviz
+rosdep install ros_comm
+rosdep install perception_pcl
 
 catkin_make clean
 catkin_make -DCATKIN_ENABLE_TESTING=False -DCMAKE_BUILD_TYPE=Release

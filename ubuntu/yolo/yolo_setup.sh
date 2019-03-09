@@ -64,11 +64,11 @@ sudo apt-get install -y ffmpeg
 
 git clone https://github.com/opencv/opencv.git
 cd opencv
-git checkout 3.3.0
+git checkout 3.2.0
 cd ..
 git clone https://github.com/opencv/opencv_contrib.git
 cd opencv_contrib
-git checkout 3.3.0
+git checkout 3.2.0
 cd ..
 cd opencv 
 mkdir build 
