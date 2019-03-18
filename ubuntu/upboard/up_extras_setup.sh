@@ -31,4 +31,25 @@ sudo usermod -a -G i2c ${USER}
 # uart
 sudo usermod -a -G dialout ${USER}
 
+# Create Swap file
+sudo fallocate -l 3G /swapfile
+sudo dd if=/dev/zero of=/swapfile bs=3072 count 1048576
+
+# Set the correct permissions
+sudo chmod 600 /swapfile
+
+# Permanent set up a Linux swap area
+sudo swapon /swapfile
+echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
+
+# Verify the swap status
+sudo swapon --show
+sudo free -h
+
+# Adjust the swappiness value
+sudo sysctl vm.swappiness=10
+
+# Note: To make this parameter persist across reboots append the following line to the /etc/sysctl.conf file
+# vm.swappiness=10
+
 sudo reboot

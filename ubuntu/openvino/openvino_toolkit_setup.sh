@@ -83,9 +83,34 @@ git submodule init
 git submodule update --recursive
 sudo ./install_dependencies.sh
 mkdir build && cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DTHREADING=TBB ..
+sudo cmake -DCMAKE_BUILD_TYPE=Release -DTHREADING=TBB ..
 make -j4
 sudo mkdir -p /opt/openvino_toolkit
 sudo ln -s ~/code/dldt /opt/openvino_toolkit/dldt
+
+# Install Open Model Zoo(guide)
+cd ~/code
+git clone https://github.com/opencv/open_model_zoo.git
+cd open_model_zoo/demos/
+git checkout e238a1ac6bfacf133be223dd9debade7bfcf7dc5
+mkdir build && cd build
+sudo cmake -DCMAKE_BUILD_TYPE=Release -DTHREADING=TBB /opt/openvino_toolkit/dldt/inference-engine 
+make -j8
+sudo mkdir -p /opt/openvino_toolkit
+sudo ln -s ~/code/open_model_zoo /opt/openvino_toolkit/open_model_zoo
+
+# Other Dependencies
+
+# numpy
+pip3 install numpy
+# libboost
+sudo apt-get install -y --no-install-recommends libboost-all-dev
+cd /usr/lib/x86_64-linux-gnu
+sudo ln -s libboost_python-py35.so libboost_python3.so
+
+# Building and Installation OpenVino Toolkit
+echo "export InferenceEngine_DIR=/opt/openvino_toolkit/dldt/inference-engine/build/" >> ~/.bashrc
+echo "export CPU_EXTENSION_LIB=/opt/openvino_toolkit/dldt/inference-engine/bin/intel64/Release/lib/libcpu_extension.so" >> ~/.bashrc
+echo "export GFLAGS_LIB=/opt/openvino_toolkit/dldt/inference-engine/bin/intel64/Release/lib/libgflags_nothreads.a" >> ~/.bashrc
 
 
