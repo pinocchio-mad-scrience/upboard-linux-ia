@@ -114,3 +114,11 @@ echo "export CPU_EXTENSION_LIB=/opt/openvino_toolkit/dldt/inference-engine/bin/i
 echo "export GFLAGS_LIB=/opt/openvino_toolkit/dldt/inference-engine/bin/intel64/Release/lib/libgflags_nothreads.a" >> ~/.bashrc
 
 
+
+
+
+
+
+
+
+
