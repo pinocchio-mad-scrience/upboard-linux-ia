@@ -5,8 +5,24 @@ sudo locale-gen en_US en_US.UTF-8
 sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 echo "export LANG=en_US.UTF-8" >> ~/.bashrc
 
-sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net --recv-key 0xB01FA116
+# Add the ROS 2 apt repository
+sudo apt update && sudo apt install curl gnupg2 lsb-release
+curl http://repo.ros2.org/repos.key | sudo apt-key add -
+
+sudo sh -c 'echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
+# Install ROS 2 packages
+export CHOOSE_ROS_DISTRO=ardent
+sudo apt update
+sudo apt install ros-$CHOOSE_ROS_DISTRO-desktop
+sudo apt install ros-$CHOOSE_ROS_DISTRO-ros-base
+sudo apt install python3-pip
+sudo pip3 install argcomplete
+
+# Sourcing the setup script
+source /opt/ros/$CHOOSE_ROS_DISTRO/setup.bash
+echo "source /opt/ros/$CHOOSE_ROS_DISTRO/setup.bash" >> ~/.bashrc
+
+# Install additional RMW implementations
 
 sudo apt update && sudo apt install -y \
   build-essential \
