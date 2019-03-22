@@ -15,6 +15,7 @@ sudo apt-get install --install-recommends linux-generic-lts-xenial xserver-xorg-
 # Update OS Boot and reboot to enforce the correct kernel selection
 sudo update-grub 
 
-echo "The system will reboot in 10 seconds
+echo "Complete instalation"
+echo "The system will reboot in 10 seconds"
 sudo reboot
 

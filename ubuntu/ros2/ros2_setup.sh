@@ -59,6 +59,12 @@ cd ~/ros2_ws/
 # On Ubuntu Linux Xenial Xerus 16.04
 colcon build --symlink-install --packages-ignore qt_gui_cpp rqt_gui_cpp
 
+sudo apt install clang
+echo "export CC=clang" >> ~/.bashrc
+echo "export CXX=clang++" >> ~/.bashrc
+colcon build --cmake-force-configure
+
+
 echo "Complete instalation"
 
 

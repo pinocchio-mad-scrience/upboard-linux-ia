@@ -34,7 +34,63 @@ sudo cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -D OPENC
 make -j8
 sudo make install
 
-echo "source /opt/intel/openvino/bin/setupvars.sh" >> ~/.bashrc
+# librealsense dependency
+sudo apt-get install -y libssl-dev libusb-1.0-0-dev pkg-config libgtk-3-dev
+sudo apt-get install -y libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev
+# numpy and networkx
+pip3 install numpy
+pip3 install networkx
+# libboost
+sudo apt-get install -y --no-install-recommends libboost-all-dev
+cd /usr/lib/x86_64-linux-gnu
+sudo ln -sf libboost_python-py35.so libboost_python3.so
+
+# Building and Installation
+echo "ROOT is required instead of sudo"
+echo "Type sudo su and enter next commands"
+echo "# source /opt/intel/computer_vision_sdk/bin/setupvars.sh"
+echo "# cd /opt/intel/computer_vision_sdk/deployment_tools/inference_engine/samples/"
+echo "# mkdir build"
+echo "# cd build"
+echo "# cmake .."
+echo "# make -j4"
+
+# set ENV CPU_EXTENSION_LIB and GFLAGS_LIB
+echo "export CPU_EXTENSION_LIB=/opt/intel/computer_vision_sdk/deployment_tools/inference_engine/samples/build/intel64/Release/lib/libcpu_extension.so" >> ~/.bashrc
+echo "export GFLAGS_LIB=/opt/intel/computer_vision_sdk/deployment_tools/inference_engine/samples/build/intel64/Release/lib/libgflags_nothreads.a" >> ~/.bashrc
+
+# Install ROS2_OpenVINO packages
+mkdir -p ~/ros2_overlay_ws/src
+cd ~/ros2_overlay_ws/src
+git clone https://github.com/intel/ros2_openvino_toolkit
+git clone https://github.com/intel/ros2_object_msgs
+git clone https://github.com/ros-perception/vision_opencv -b ros2
+git clone https://github.com/ros2/message_filters.git
+git clone https://github.com/ros-perception/image_common.git -b ros2
+git clone https://github.com/intel/ros2_intel_realsense.git
+
+# Build package
+source ~/ros2_ws/install/local_setup.bash
+source /opt/intel/computer_vision_sdk/bin/setupvars.sh
+echo "export OpenCV_DIR=$HOME/code/opencv/build" >> ~/.bashrc
+cd ~/ros2_overlay_ws
+colcon build --symlink-install
+source ./install/local_setup.bash
+sudo mkdir -p /opt/openvino_toolkit
+sudo ln -sf ~/ros2_overlay_ws/src/ros2_openvino_toolkit /opt/openvino_toolkit/ros2_openvino_toolkit
+
+
+
+
+
+
+
+
+
+
+
+
+source /opt/intel/openvino/bin/setupvars.sh
 # Init workspace
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/src/

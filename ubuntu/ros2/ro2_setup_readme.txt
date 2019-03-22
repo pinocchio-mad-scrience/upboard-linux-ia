@@ -1,6 +1,6 @@
-                       #  Robot Operating System (ROS) basic start and install information
+                       #  Robot Operating System (ROS2) basic start and install information
 
-A. Install application
+A. Install ROS2 
 
 ----------------IMPORTANT -----------------
 On some boards setup will stuck you're system
@@ -12,6 +12,7 @@ Please also run next script in another terminal while running the setup
 
 # If you have issues with install dependencies please follow this link
 # https://index.ros.org/doc/ros2/Installation/Linux-Development-Setup/
+
 
 ============================================================================
 B. Try some examples
@@ -27,6 +28,11 @@ B. Try some examples
 3. Check simple example 
 You should see the talker saying that it’s Publishing messages and the listener saying I heard those messages. Hooray!
 
+C. Install ROS2 openvino toolkit
 
+1. sudo $HOME/upboard-yocto-ia/ubuntu/upboard/tools/free_ram.sh -> first terminal
+2. sudo ./ros2_openvino_toolkit_setup.sh -> second terminal
 
+# If you have issues with install ROS2 openvino toolkit dependencies please follow this link
+# https://github.com/intel/ros2_openvino_toolkit/blob/devel/doc/BINARY_VERSION_README.md
 
