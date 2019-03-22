@@ -1,21 +1,40 @@
 #!/bin/bash 
 
-#CREDIT
-# https://github.com/intel/ros_openvino_toolkit/blob/master/doc/OPEN_SOURCE_CODE_README.md
-# http://wiki.ros.org/melodic/Installation/Ubuntu
+# OpenVINO-Install-Linux 
+tar -zxf l_openvino_toolkit_p_*.tgz
+cd l_openvino_toolkit_p_*/
+sudo -E ./install_cv_sdk_dependencies.sh
+sudo ./install.sh
 
-# Install the ROS Melodic Full distribution
-sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
-sudo apt update
-sudo apt install -y ros-melodic-desktop-full
-sudo apt install ros-melodic-opencv*
-sudo rosdep init
-rosdep update
-source /opt/ros/melodic/setup.bash
+# Configure model TensorFlow and Caffe
+sudo apt install python-pip
+sudo pip install --upgrade pip
+cd /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/install_prerequisites
+sudo ./install_prerequisites.sh
+sudo ./install_prerequisites_tf.sh
+sudo ./install_prerequisites_caffe.sh
 
-sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
+# Install OpenCL Driver for GPU 
+cd /opt/intel/computer_vision_sdk/install_dependencies
+sudo ./install_NEO_OCL_driver.sh
+sudo usermod -a -G video ${USER}
+# Install OpenCV 3.4 or later
+sudo apt-get install -y build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev \
+libavformat-dev libswscale-dev python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev \
+libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
 
+mkdir -p ~/code && cd ~/code
+git clone https://github.com/opencv/opencv.git
+git clone https://github.com/opencv/opencv_contrib.git
+cd opencv && git checkout 3.4.2 && cd ..
+cd opencv_contrib && git checkout 3.4.2 && cd ..
+cd opencv
+mkdir build && cd build
+sudo cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -D OPENCV_EXTRA_MODULES_PATH=$HOME/code/opencv_contrib/modules/ ..
+make -j8
+sudo make install
+
+echo "source /opt/intel/openvino/bin/setupvars.sh" >> ~/.bashrc
 # Init workspace
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/src/

@@ -1,14 +1,9 @@
                        # RealSense basic start and install information
 
 
-A. Install application
+A. Install realsense application
 
-----------------IMPORTANT -----------------
-On some boards setup will stuck you're system
-Please also run next script in another terminal while running the setup
-
-sudo ./tools/free_ram.sh -> first terminal
-sudo ./real_sense_setup.sh -> second terminal
+sudo ./real_sense_setup.sh 
 
 Linux Distribution
 Using pre-build packages
@@ -29,10 +24,16 @@ The steps are described in Linux manual installation guide
 # https://github.com/IntelRealSense/librealsense/blob/development/doc/distribution_linux.md
 # https://github.com/intel-ros/realsense
 
-B. For Firmware update, follow next link instructions:
+B. Install SDK realsense application
+----------------IMPORTANT -----------------
+Save you're work because after this script wil end, it will reboot you're system
+sudo ./SDK_real_sense_setup.sh
+
+
+C. For Firmware update, follow next link instructions:
 https://www.intel.com/content/dam/support/us/en/documents/emerging-technologies/intel-realsense-technology/Linux-RealSense-D400-DFU-Guide.pdf
 
-C. Run Application
+D. Run Application
 
 1. Reconnect the Intel RealSense depth camera and run: realsense-viewer to verify the installation.
 2. Startup RVIZ
