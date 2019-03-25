@@ -11,12 +11,11 @@ curl http://repo.ros2.org/repos.key | sudo apt-key add -
 
 sudo sh -c 'echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
 # Install ROS 2 packages
-export CHOOSE_ROS_DISTRO=ardent
+export CHOOSE_ROS_DISTRO=crystal
 sudo apt update
 sudo apt install ros-$CHOOSE_ROS_DISTRO-desktop
 sudo apt install ros-$CHOOSE_ROS_DISTRO-ros-base
-sudo apt install python3-pip
-sudo pip3 install argcomplete
+sudo apt install python3-argcomplete
 
 # Sourcing the setup script
 source /opt/ros/$CHOOSE_ROS_DISTRO/setup.bash
@@ -58,6 +57,8 @@ sudo apt install --no-install-recommends -y \
   libasio-dev \
   libtinyxml2-dev
 
+
+
 # Get ROS 2.0 code
 mkdir -p ~/ros2_ws/src
 cd ~/ros2_ws
@@ -66,19 +67,19 @@ vcs import src < ros2.repos
 
 # Install dependencies using rosdep
 sudo rosdep init
-rosdep update
-# [Ubuntu 16.04]
-rosdep install --from-paths src --ignore-src --rosdistro crystal -y --skip-keys "console_bridge fastcdr fastrtps libopensplice67 libopensplice69 python3-lark-parser rti-connext-dds-5.3.1 urdfdom_headers"
+sudo rosdep update
+# [Ubuntu 18.04]
+rosdep install --from-paths src --ignore-src --rosdistro crystal -y --skip-keys "console_bridge fastcdr fastrtps libopensplice67 libopensplice69 rti-connext-dds-5.3.1 urdfdom_headers"
 
 # Build the code in the workspace
 cd ~/ros2_ws/
-# On Ubuntu Linux Xenial Xerus 16.04
-colcon build --symlink-install --packages-ignore qt_gui_cpp rqt_gui_cpp
+# On Ubuntu Linux Bionic Beaver 18.04
+colcon build --symlink-install
 
-sudo apt install clang
-echo "export CC=clang" >> ~/.bashrc
-echo "export CXX=clang++" >> ~/.bashrc
-colcon build --cmake-force-configure
+#sudo apt install clang
+#echo "export CC=clang" >> ~/.bashrc
+#echo "export CXX=clang++" >> ~/.bashrc
+#colcon build --cmake-force-configure
 
 
 echo "Complete instalation"

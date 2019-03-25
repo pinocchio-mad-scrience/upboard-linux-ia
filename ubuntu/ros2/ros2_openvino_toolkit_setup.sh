@@ -19,9 +19,12 @@ cd /opt/intel/computer_vision_sdk/install_dependencies
 sudo ./install_NEO_OCL_driver.sh
 sudo usermod -a -G video ${USER}
 # Install OpenCV 3.4 or later
+sudo add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main"
+sudo apt update
+sudo apt install libjasper1 libjasper-dev
 sudo apt-get install -y build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev \
 libavformat-dev libswscale-dev python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev \
-libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
+libpng-dev libtiff-dev libdc1394-22-dev
 
 mkdir -p ~/code && cd ~/code
 git clone https://github.com/opencv/opencv.git
