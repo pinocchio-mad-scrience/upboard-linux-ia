@@ -53,6 +53,13 @@ sudo sysctl vm.swappiness=10
 # To make this parameter persist across reboots append the following line
 echo "vm.swappiness=10" >> /etc/sysctl.conf 
 
+# Install Ubuntu kernel 4.15.0 for UP from PPA on Ubuntu 18.04
+sudo add-apt-repository ppa:ubilinux/up
+sudo apt update
+sudo apt-get autoremove --purge 'linux-.*generic'
+sudo apt-get install linux-image-generic-hwe-18.04-upboard
+sudo apt dist-upgrade -y
+
 echo "Install Completed/n"
 echo "Now reboot the system in 10 seconds"
 sleep 10

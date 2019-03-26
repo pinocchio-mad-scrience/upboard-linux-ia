@@ -21,14 +21,15 @@ While we strongly recommend to use DKMS package whenever possible, there are cer
 The steps are described in Linux manual installation guide
 
 # If you have issues with install dependencies please follow this link
-# https://github.com/IntelRealSense/librealsense/blob/development/doc/distribution_linux.md
-# https://github.com/intel-ros/realsense
+# https://github.com/IntelRealSense/librealsense/blob/v2.17.1/doc/installation.md
 
 B. Install SDK realsense application
 ----------------IMPORTANT -----------------
 Save you're work because after this script wil end, it will reboot you're system
 sudo ./SDK_real_sense_setup.sh
 
+# If you have issues with install dependencies please follow this link
+# https://github.com/IntelRealSense/librealsense/blob/development/doc/distribution_linux.md
 
 C. For Firmware update, follow next link instructions:
 https://www.intel.com/content/dam/support/us/en/documents/emerging-technologies/intel-realsense-technology/Linux-RealSense-D400-DFU-Guide.pdf

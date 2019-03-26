@@ -1,16 +1,30 @@
 #!/bin/bash 
 
-# Install the latest Intel RealSense SDK 2.0
+# Linux Ubuntu Installation
 sudo apt-key adv --keyserver keys.gnupg.net --recv-key C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key C8B3A55A6F3EFCDE
-# Ubuntu 16 LTS:
-sudo add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo xenial main" -u
-
-sudo apt-get install -y librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg
+sudo add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo bionic main" -u
 
 # Make Ubuntu Up-to-date
 sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade
 
-sudo apt-get install --install-recommends linux-generic-lts-xenial xserver-xorg-core-lts-xenial xserver-xorg-lts-xenial xserver-xorg-video-all-lts-xenial xserver-xorg-input-all-lts-xenial libwayland-egl1-mesa-lts-xenial 
+# Install linux 4.15.0-37 headers
+sudo apt-get install linux-headers-4.15.0-37
+sudo apt-get install linux-headers-4.15.0-37-generic  
+
+# Create symbolic link for DKMS to install the modules
+# Workaround - Hardcode kernel version 
+# Applied since my linux headers does not match with the modules version
+sudo ln -s /usr/src/linux-headers-4.15.0-37  /lib/modules/4.15.0-37-generic/build
+
+sudo apt-get install -y librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg
+
+# Verify ucvcvideo
+modinfo uvcvideo | grep "version:"
+
+echo "Output should be somethins like this:"
+echo "version:        1.1.2.realsense-1.3.4"
+
+echo "Complete install packages"
 
 # Update OS Boot and reboot to enforce the correct kernel selection
 sudo update-grub 

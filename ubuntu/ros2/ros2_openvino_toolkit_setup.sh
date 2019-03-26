@@ -22,6 +22,9 @@ sudo usermod -a -G video ${USER}
 sudo add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main"
 sudo apt update
 sudo apt install libjasper1 libjasper-dev
+# numpy and networkx
+pip3 install numpy
+pip3 install networkx
 sudo apt-get install -y build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev \
 libavformat-dev libswscale-dev python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev \
 libpng-dev libtiff-dev libdc1394-22-dev
@@ -34,15 +37,13 @@ cd opencv_contrib && git checkout 3.4.2 && cd ..
 cd opencv
 mkdir build && cd build
 sudo cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -D OPENCV_EXTRA_MODULES_PATH=$HOME/code/opencv_contrib/modules/ ..
-make -j8
+sudo make -j4
 sudo make install
 
 # librealsense dependency
 sudo apt-get install -y libssl-dev libusb-1.0-0-dev pkg-config libgtk-3-dev
 sudo apt-get install -y libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev
-# numpy and networkx
-pip3 install numpy
-pip3 install networkx
+
 # libboost
 sudo apt-get install -y --no-install-recommends libboost-all-dev
 cd /usr/lib/x86_64-linux-gnu
@@ -65,7 +66,7 @@ echo "export GFLAGS_LIB=/opt/intel/computer_vision_sdk/deployment_tools/inferenc
 # Install ROS2_OpenVINO packages
 mkdir -p ~/ros2_overlay_ws/src
 cd ~/ros2_overlay_ws/src
-git clone https://github.com/intel/ros2_openvino_toolkit
+git clone https://github.com/intel/ros2_openvino_toolkit -b devel
 git clone https://github.com/intel/ros2_object_msgs
 git clone https://github.com/ros-perception/vision_opencv -b ros2
 git clone https://github.com/ros2/message_filters.git
@@ -76,120 +77,47 @@ git clone https://github.com/intel/ros2_intel_realsense.git
 source ~/ros2_ws/install/local_setup.bash
 source /opt/intel/computer_vision_sdk/bin/setupvars.sh
 echo "export OpenCV_DIR=$HOME/code/opencv/build" >> ~/.bashrc
+sudo apt-get install ros-crystal-librealsense2
 cd ~/ros2_overlay_ws
 colcon build --symlink-install
 source ./install/local_setup.bash
 sudo mkdir -p /opt/openvino_toolkit
 sudo ln -sf ~/ros2_overlay_ws/src/ros2_openvino_toolkit /opt/openvino_toolkit/ros2_openvino_toolkit
 
+# Running the Demo
+
+#object segmentation model
+cd /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/install_prerequisites
+sudo ./install_prerequisites.sh
+mkdir -p ~/Downloads/models
+cd ~/Downloads/models
+wget http://download.tensorflow.org/models/object_detection/mask_rcnn_inception_v2_coco_2018_01_28.tar.gz
+tar -zxvf mask_rcnn_inception_v2_coco_2018_01_28.tar.gz
+cd mask_rcnn_inception_v2_coco_2018_01_28
+python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo_tf.py --input_model frozen_inference_graph.pb --tensorflow_use_custom_operations_config /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/extensions/front/tf/mask_rcnn_support.json --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --output_dir ./output/
+sudo mkdir -p /opt/models
+sudo ln -sf ~/Downloads/models/mask_rcnn_inception_v2_coco_2018_01_28 /opt/models/
+#object detection model
+cd /opt/intel/computer_vision_sdk/deployment_tools/model_downloader
+sudo python3 ./downloader.py --name mobilenet-ssd
+#FP32 precision model
+sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo.py --input_model /opt/intel/computer_vision_sdk/deployment_tools/model_downloader/object_detection/common/mobilenet-ssd/caffe/mobilenet-ssd.caffemodel --output_dir /opt/intel/computer_vision_sdk/deployment_tools/model_downloader/object_detection/common/mobilenet-ssd/caffe/output/FP32 --mean_values [127.5,127.5,127.5] --scale_values [127.5]
+#FP16 precision model
+sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo.py --input_model /opt/intel/computer_vision_sdk/deployment_tools/model_downloader/object_detection/common/mobilenet-ssd/caffe/mobilenet-ssd.caffemodel --output_dir /opt/intel/computer_vision_sdk/deployment_tools/model_downloader/object_detection/common/mobilenet-ssd/caffe/output/FP16 --data_type=FP16 --mean_values [127.5,127.5,127.5] --scale_values [127.5]
+
+# copy label files (excute once)
+sudo cp /opt/openvino_toolkit/ros2_openvino_toolkit/data/labels/emotions-recognition/FP32/emotions-recognition-retail-0003.labels /opt/intel/computer_vision_sdk/deployment_tools/intel_models/emotions-recognition-retail-0003/FP32
+sudo cp /opt/openvino_toolkit/ros2_openvino_toolkit/data/labels/face_detection/face-detection-adas-0001.labels /opt/intel/computer_vision_sdk/deployment_tools/intel_models/face-detection-adas-0001/FP32
+sudo cp /opt/openvino_toolkit/ros2_openvino_toolkit/data/labels/face_detection/face-detection-adas-0001.labels /opt/intel/computer_vision_sdk/deployment_tools/intel_models/face-detection-adas-0001/FP16
+sudo cp /opt/openvino_toolkit/ros2_openvino_toolkit/data/labels/object_segmentation/frozen_inference_graph.labels ~/Downloads/models/mask_rcnn_inception_v2_coco_2018_01_28/output
+sudo cp /opt/openvino_toolkit/ros2_openvino_toolkit/data/labels/object_detection/mobilenet-ssd.labels /opt/intel/computer_vision_sdk/deployment_tools/model_downloader/object_detection/common/mobilenet-ssd/caffe/output/FP32
+sudo cp /opt/openvino_toolkit/ros2_openvino_toolkit/data/labels/object_detection/ssd300.labels /opt/intel/computer_vision_sdk/deployment_tools/model_downloader/object_detection/common/mobilenet-ssd/caffe/output/FP36
+
+source /opt/intel/computer_vision_sdk/bin/setupvars.sh
+echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/computer_vision_sdk/deployment_tools/inference_engine/samples/build/intel64/Release/lib" >> ~/.bashrc
 
 
 
-
-
-
-
-
-
-
-
-source /opt/intel/openvino/bin/setupvars.sh
-# Init workspace
-mkdir -p ~/catkin_ws/src
-cd ~/catkin_ws/src/
-git clone https://github.com/ros-visualization/rviz.git
-git clone https://github.com/intel/ros_object_analytics
-git clone https://github.com/intel/object_msgs.git
-git clone https://github.com/ros/ros_comm.git
-git clone https://github.com/ros/std_msgs.git
-git clone https://github.com/ros/common_msgs.git
-git clone https://github.com/ros-perception/perception_pcl
-git clone https://github.com/ros-perception/vision_opencv.git
-
-catkin_init_workspace
-sed -i '62ifind_package(OpenCV)' CMakeLists.txt
-cd ..
-
-# Install Intel RealSense ROS & RVIZ from Sources
-rosdep install object_analytics
-rosdep install object_msgs
-rosdep install rviz
-rosdep install ros_comm
-rosdep install perception_pcl
-
-catkin_make clean
-catkin_make -j2 -DCATKIN_ENABLE_TESTING=False -DCMAKE_BUILD_TYPE=Release -DOpenCV_DIR=/usr/local/share/OpenCV
-catkin_make install
-echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
-source ~/.bashrc
-
-# Install OpenVINO™ Toolkit Open Source
-sudo apt-get install build-essential
-sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
-sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
-cd ~/code
-git clone https://github.com/opencv/opencv.git
-git clone https://github.com/opencv/opencv_contrib.git
-cd opencv && git checkout 3.3.1 && cd ..
-cd opencv_contrib && git checkout 3.3.1 && cd ..
-cd opencv
-mkdir build && cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -D OPENCV_EXTRA_MODULES_PATH=$HOME/code/opencv_contrib/modules/ ..
-sudo make -j4
-sudo make install
-
-# Install OpenCL Driver for GPU
-cd ~/Downloads
-wget http://registrationcenter-download.intel.com/akdlm/irc_nas/11396/SRB5.0_linux64.zip
-unzip SRB5.0_linux64.zip -d SRB5.0_linux64
-cd SRB5.0_linux64
-sudo apt-get install xz-utils
-mkdir intel-opencl
-tar -C intel-opencl -Jxf intel-opencl-r5.0-63503.x86_64.tar.xz
-tar -C intel-opencl -Jxf intel-opencl-devel-r5.0-63503.x86_64.tar.xz
-tar -C intel-opencl -Jxf intel-opencl-cpu-r5.0-63503.x86_64.tar.xz
-sudo cp -R intel-opencl/* /
-sudo ldconfig
-
-# Install Deep Learning Deployment Toolkit
-sudo apt-get install gdal-bin libgdal-dev
-mkdir ~/code && cd ~/code
-git clone https://github.com/opencv/dldt.git
-cd dldt/inference-engine/
-git checkout 2018_R4
-git submodule init
-git submodule update --recursive
-sudo ./install_dependencies.sh
-mkdir build && cd build
-sudo cmake -DCMAKE_BUILD_TYPE=Release -DTHREADING=TBB ..
-make -j4
-sudo mkdir -p /opt/openvino_toolkit
-sudo ln -s ~/code/dldt /opt/openvino_toolkit/dldt
-
-# Install Open Model Zoo(guide)
-cd ~/code
-git clone https://github.com/opencv/open_model_zoo.git
-cd open_model_zoo/demos/
-git checkout e238a1ac6bfacf133be223dd9debade7bfcf7dc5
-mkdir build && cd build
-sudo cmake -DCMAKE_BUILD_TYPE=Release -DTHREADING=TBB /opt/openvino_toolkit/dldt/inference-engine 
-make -j8
-sudo mkdir -p /opt/openvino_toolkit
-sudo ln -s ~/code/open_model_zoo /opt/openvino_toolkit/open_model_zoo
-
-# Other Dependencies
-
-# numpy
-pip3 install numpy
-# libboost
-sudo apt-get install -y --no-install-recommends libboost-all-dev
-cd /usr/lib/x86_64-linux-gnu
-sudo ln -s libboost_python-py35.so libboost_python3.so
-
-# Building and Installation OpenVino Toolkit
-echo "export InferenceEngine_DIR=/opt/openvino_toolkit/dldt/inference-engine/build/" >> ~/.bashrc
-echo "export CPU_EXTENSION_LIB=/opt/openvino_toolkit/dldt/inference-engine/bin/intel64/Release/lib/libcpu_extension.so" >> ~/.bashrc
-echo "export GFLAGS_LIB=/opt/openvino_toolkit/dldt/inference-engine/bin/intel64/Release/lib/libgflags_nothreads.a" >> ~/.bashrc
 
 
 
