@@ -14,6 +14,25 @@ sudo ./install_prerequisites.sh
 sudo ./install_prerequisites_tf.sh
 sudo ./install_prerequisites_caffe.sh
 
+# Configure the Neural Compute Stick USB Driver
+cd ~/Downloads
+cat <<EOF > 97-usbboot.rules
+SUBSYSTEM=="usb", ATTRS{idProduct}=="2150", ATTRS{idVendor}=="03e7", GROUP="users", MODE="0666", ENV{ID_MM_DEVICE_IGNORE}="1"
+SUBSYSTEM=="usb", ATTRS{idProduct}=="2485", ATTRS{idVendor}=="03e7", GROUP="users", MODE="0666", ENV{ID_MM_DEVICE_IGNORE}="1"
+SUBSYSTEM=="usb", ATTRS{idProduct}=="f63b", ATTRS{idVendor}=="03e7", GROUP="users", MODE="0666", ENV{ID_MM_DEVICE_IGNORE}="1"
+EOF
+
+sudo cp 97-usbboot.rules /etc/udev/rules.d/
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+sudo ldconfig
+rm 97-usbboot.rules
+
+# Test the Installation
+cd /opt/intel/computer_vision_sdk/deployment_tools/demo
+sudo ./demo_security_barrier_camera.sh -d MYRIAD
+sudo ./demo_squeezenet_download_convert_run.sh -d MYRIAD
+
 # Install OpenCL Driver for GPU 
 cd /opt/intel/computer_vision_sdk/install_dependencies
 sudo ./install_NEO_OCL_driver.sh
@@ -41,7 +60,7 @@ sudo make -j4
 sudo make install
 
 # librealsense dependency
-sudo apt-get install -y libssl-dev libusb-1.0-0-dev pkg-config libgtk-3-dev
+sudo apt-get install -y libssl-dev libusb-1.0-0-dev pkg-config libgtk-3-dev libcanberra-gtk-module
 sudo apt-get install -y libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev
 
 # libboost
@@ -74,12 +93,14 @@ git clone https://github.com/ros-perception/image_common.git -b ros2
 git clone https://github.com/intel/ros2_intel_realsense.git
 
 # Build package
+echo "source ~/ros2_ws/install/local_setup.bash" >> ~/.bashrc
 source ~/ros2_ws/install/local_setup.bash
 source /opt/intel/computer_vision_sdk/bin/setupvars.sh
 echo "export OpenCV_DIR=$HOME/code/opencv/build" >> ~/.bashrc
 sudo apt-get install ros-crystal-librealsense2
 cd ~/ros2_overlay_ws
 colcon build --symlink-install
+echo "source ~/ros2_overlay_ws/install/local_setup.bash" >> ~/.bashrc
 source ./install/local_setup.bash
 sudo mkdir -p /opt/openvino_toolkit
 sudo ln -sf ~/ros2_overlay_ws/src/ros2_openvino_toolkit /opt/openvino_toolkit/ros2_openvino_toolkit
@@ -113,11 +134,11 @@ sudo cp /opt/openvino_toolkit/ros2_openvino_toolkit/data/labels/object_segmentat
 sudo cp /opt/openvino_toolkit/ros2_openvino_toolkit/data/labels/object_detection/mobilenet-ssd.labels /opt/intel/computer_vision_sdk/deployment_tools/model_downloader/object_detection/common/mobilenet-ssd/caffe/output/FP32
 sudo cp /opt/openvino_toolkit/ros2_openvino_toolkit/data/labels/object_detection/ssd300.labels /opt/intel/computer_vision_sdk/deployment_tools/model_downloader/object_detection/common/mobilenet-ssd/caffe/output/FP36
 
-source /opt/intel/computer_vision_sdk/bin/setupvars.sh
+echo "source /opt/intel/computer_vision_sdk/bin/setupvars.sh" >> ~/.bashrc
 echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/computer_vision_sdk/deployment_tools/inference_engine/samples/build/intel64/Release/lib" >> ~/.bashrc
 
 
-
+pip3 install --upgrade protobuf==3.6.1 --user
 
 
 
