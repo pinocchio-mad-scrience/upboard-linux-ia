@@ -97,7 +97,7 @@ echo "source ~/ros2_ws/install/local_setup.bash" >> ~/.bashrc
 source ~/ros2_ws/install/local_setup.bash
 source /opt/intel/computer_vision_sdk/bin/setupvars.sh
 echo "export OpenCV_DIR=$HOME/code/opencv/build" >> ~/.bashrc
-sudo apt-get install ros-crystal-librealsense2
+sudo apt-get install ros-crystal-librealsense2 ros-crystal-realsense-camera-msgs ros-crystal-realsense-ros2-camera
 cd ~/ros2_overlay_ws
 colcon build --symlink-install
 echo "source ~/ros2_overlay_ws/install/local_setup.bash" >> ~/.bashrc

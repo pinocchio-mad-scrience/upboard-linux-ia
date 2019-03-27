@@ -32,16 +32,16 @@ sudo usermod -a -G i2c ${USER}
 sudo usermod -a -G dialout ${USER}
 
 # Create Swap file
-sudo fallocate -l 3G /swapfile
-sudo dd if=/dev/zero of=/swapfile bs=3072 count=1048576
+sudo fallocate -l 6.5G swapfile
+sudo dd if=/dev/zero of=swapfile bs=6656 count=1048576
 
 # Set the correct permissions
-sudo chmod 600 /swapfile
+sudo chmod 600 swapfile
 
 # Permanent set up a Linux swap area to persist across reboots
-sudo swapon /swapfile
-mkswap /swapfile
-echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
+sudo mkswap swapfile
+sudo swapon swapfile
+echo "/media/keya87/83280304-3895-4e4c-b64d-43aea22bc2d0/swapfile swap swap defaults 0 0" >> /etc/fstab
 
 # Verify the swap status
 sudo swapon --show

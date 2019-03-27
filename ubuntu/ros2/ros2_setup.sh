@@ -74,7 +74,7 @@ rosdep install --from-paths src --ignore-src --rosdistro crystal -y --skip-keys 
 # Build the code in the workspace
 cd ~/ros2_ws/
 # On Ubuntu Linux Bionic Beaver 18.04
-colcon build --symlink-install
+colcon build --symlink-install --packages-ignore qt_gui_cpp rqt_gui_cpp
 
 #sudo apt install clang
 #echo "export CC=clang" >> ~/.bashrc
@@ -83,5 +83,3 @@ colcon build --symlink-install
 
 
 echo "Complete instalation"
-
-
