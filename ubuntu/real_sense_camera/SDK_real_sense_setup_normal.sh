@@ -4,6 +4,7 @@
 sudo mkdir -p $HOME/code
 cd $HOME/code
 git clone https://github.com/IntelRealSense/librealsense.git
+git checkout v2.17.1
 cd librealsense
 sudo apt-get install git libssl-dev libusb-1.0-0-dev pkg-config libgtk-3-dev
 

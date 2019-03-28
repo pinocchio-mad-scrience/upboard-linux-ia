@@ -97,13 +97,19 @@ echo "source ~/ros2_ws/install/local_setup.bash" >> ~/.bashrc
 source ~/ros2_ws/install/local_setup.bash
 source /opt/intel/computer_vision_sdk/bin/setupvars.sh
 echo "export OpenCV_DIR=$HOME/code/opencv/build" >> ~/.bashrc
-sudo apt-get install ros-crystal-librealsense2 ros-crystal-realsense-camera-msgs ros-crystal-realsense-ros2-camera
+sudo apt-get install ros-crystal-librealsense2
 cd ~/ros2_overlay_ws
 colcon build --symlink-install
 echo "source ~/ros2_overlay_ws/install/local_setup.bash" >> ~/.bashrc
 source ./install/local_setup.bash
 sudo mkdir -p /opt/openvino_toolkit
 sudo ln -sf ~/ros2_overlay_ws/src/ros2_openvino_toolkit /opt/openvino_toolkit/ros2_openvino_toolkit
+
+# Workaround for creating missing test files
+sudo mkdir -p /home/keya87/ros2_ws/install/rviz_rendering_tests/share/rviz_rendering_tests/ogre_media_resources/scripts
+sudo mkdir -p /home/keya87/ros2_ws/install/rviz_rendering_tests/share/rviz_rendering_tests/ogre_media_resources/meshes
+cp ~/ros2_ws/install/rviz_rendering_tests/share/rviz_rendering_tests/scripts/test /home/keya87/ros2_ws/install/rviz_rendering_tests/share/rviz_rendering_tests/ogre_media_resources/scripts
+cp ~/ros2_ws/install/rviz_rendering_tests/share/rviz_rendering_tests/meshes/test /home/keya87/ros2_ws/install/rviz_rendering_tests/share/rviz_rendering_tests/ogre_media_resources/meshes
 
 # Running the Demo
 
@@ -137,8 +143,6 @@ sudo cp /opt/openvino_toolkit/ros2_openvino_toolkit/data/labels/object_detection
 echo "source /opt/intel/computer_vision_sdk/bin/setupvars.sh" >> ~/.bashrc
 echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/computer_vision_sdk/deployment_tools/inference_engine/samples/build/intel64/Release/lib" >> ~/.bashrc
 
-
-pip3 install --upgrade protobuf==3.6.1 --user
 
 
 
