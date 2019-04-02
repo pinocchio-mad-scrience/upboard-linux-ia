@@ -1,5 +1,5 @@
 
-# AAERON UPBOARD - Intelligent Assistant (IA) Version 2.5
+# AAERON UPBOARD - Intelligent Assistant (IA) Version 2.6
 ### -------------------------Yocto/Linux Community project-------------------------
 
 *************************************************************************
@@ -10,7 +10,7 @@ Personal Robot Assistant with Artificial Intelligence develop using Intel Roboti
 
 [Yocto build host environment for upboard-yocto-ia](https://github.com/pinocchio-mad-scrience/upboard-yocto-ia/blob/master/README-build.md)
 
-[Ubuntu Alexa Voice Service build and run environment for upboard-yocto-ia](https://github.com/pinocchio-mad-scrience/upboard-yocto-ia/blob/master/ubuntu/avs_scripts/AVS_setup.txt)
+[Ubuntu build host enviroment for UP Board](https://github.com/pinocchio-mad-scrience/upboard-yocto-ia/tree/master/ubuntu)
 
 ### Operating systems
 
@@ -25,9 +25,10 @@ Personal Robot Assistant with Artificial Intelligence develop using Intel Roboti
 
 ### OS Features:
 - Amazon Alexa Voice Service with KITT.ai Third-Party Wake Word Detector and Key Word Detector (KWD) 
--SDK Leap Motion Linux Kit and SDK Leap Motion Developer Linux Kit
+- SDK Leap Motion Linux Kit and SDK Leap Motion Developer Linux Kit
 - Intel® RealSense™ SDK 2.0
 - Intel® Distribution of OpenVINO™ toolkit 2018 R5.0.1
+- The Robot Operating System (ROS2)
 - Power ON using a Power Bank 5V/2.4 A
 - Improved Audio/Video Quality using QT5, Messa and X11
 - Partial install of Deep learning frameworks on Ubuntu 
