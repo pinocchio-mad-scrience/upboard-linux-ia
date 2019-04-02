@@ -6,5 +6,3 @@
 
 [ULN2003A 4 Phase Stepper Motor Driver PCB](https://docs.google.com/viewer?url=https://www.electronicoscaldas.com/datasheet/ULN2003A-PCB.pdf)
 
-[ULN2003A 4 Phase Stepper Motor Driver PCB](https://docs.google.com/viewer?url=https://www.electronicoscaldas.com/datasheet/ULN2003A-PCB.pdf)
-
