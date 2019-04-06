@@ -14,7 +14,7 @@ Personal Robot Assistant with Artificial Intelligence develop using Intel Roboti
 
 ### Operating systems
 
-1. Ubuntu 18.04 LTS Linux distribution
+1. Ubuntu 16.04 LTS Linux distribution
 - Video HD Broadcast, Camera Recording,Buffering and Data Analyze 
 - Local Network Communication with Second OS 
 - Boot from SSD
