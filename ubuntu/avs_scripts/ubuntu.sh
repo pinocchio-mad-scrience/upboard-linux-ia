@@ -39,7 +39,7 @@ install_dependencies() {
   make binutils autoconf automake autotools-dev libtool \
   pkg-config zlib1g-dev libcunit1-dev libssl-dev libxml2-dev libev-dev \
   libevent-dev libjansson-dev libjemalloc-dev cython python3-dev \
-  python-setuptools portaudio19-dev libgtest-dev openjdk-8-jdk \
+  python-setuptools portaudio19-dev libgtest-dev openjdk-8-jdk libgstreamer-plugins-base1.0-dev \
   python-pyaudio python3-pyaudio sox libatlas-base-dev python3-pip python-pip && pip install pyaudio
 }
 
@@ -78,7 +78,7 @@ build_kwd_engine() {
   echo
 
   cd $THIRD_PARTY_PATH
- # git clone git://github.com:Kitt-AI/snowboy.git
+  sudo git clone https://github.com/Kitt-AI/snowboy.git
 
   #Compile a supported swig version (3.0.10 or above)
   wget http://downloads.sourceforge.net/swig/swig-3.0.10.tar.gz
