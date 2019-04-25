@@ -38,10 +38,10 @@ KITTAI_RES="$THIRD_PARTY_PATH/snowboy/resources"
 install_dependencies() {
   sudo apt-get update
   sudo apt-get install -y g++ \
-  make binutils autoconf automake autotools-dev libtool \
-  pkg-config zlib1g-dev libcunit1-dev libssl-dev libxml2-dev libev-dev \
-  libevent-dev libjansson-dev libjemalloc-dev cython python3-dev sqlite3 libsqlite3-dev\
-  python-setuptools portaudio19-dev libgtest-dev openjdk-8-jdk libgstreamer-plugins-base1.0-dev \
+  make binutils autoconf automake autotools-dev libtool pavucontrol \
+  pkg-config zlib1g-dev libcunit1-dev libssl-dev libxml2-dev libev-dev libevent-dev libjansson-dev \
+  libjemalloc-dev cython python3-dev sqlite3 libsqlite3-dev python-setuptools portaudio19-dev \
+  libgtest-dev openjdk-8-jdk gstreamer1.0-plugins-ugly gstreamer1.0-alsa libgstreamer-plugins-base1.0-dev \
   python-pyaudio python3-pyaudio sox libatlas-base-dev python3-pip python-pip && pip install pyaudio
 }
 
@@ -115,7 +115,7 @@ fi
 build_gtest() {
 # compile and build gest
   echo
-  echo "==============> CLONING AND BUILDING NGHTTP2 =============="
+  echo "==============> COMPILE AND BUILD GTEST =============="
   echo
 
  cd  /usr/src/gtest
@@ -127,11 +127,12 @@ build_gtest() {
 build_nghttp2() {
   #get nghttp2 and build
   echo
- echo "==============> CLONING AND BUILDING NGHTTP2 =============="
- echo
+  echo "==============> CLONING AND BUILDING NGHTTP2 =============="
+  echo
 
 if [ -e "$NGHTTP2_DIR" ]
-    thenecho "======'nghttp2' already exists and is not an empty directory ====SKIP===="
+    then
+    echo "======'nghttp2' already exists and is not an empty directory ====SKIP===="
     else
  cd $THIRD_PARTY_PATH
  git clone https://github.com/tatsuhiro-t/nghttp2.git
@@ -154,7 +155,7 @@ configure_nghttp2() {
  echo "==============> CONFIGURE NGHTTP2 =============="
  echo
 
-if [ -e "$CURL_DIR_DIR" ]
+if [ -e "$CURL_DIR" ]
     then
 echo "======'curl' already exists and is not an empty directory ====SKIP===="
     else
@@ -182,6 +183,6 @@ generate_start_script() {
   cat << EOF > "$START_SCRIPT"
  cd "$BUILD_PATH/SampleApp/src"
 
-  ./SampleApp "$OUTPUT_CONFIG_FILE" "$KITTAI_RES/snowboy/resources/models" DEBUG9
+  ./SampleApp "$OUTPUT_CONFIG_FILE" "$KITTAI_RES/models" DEBUG9
 EOF
 }

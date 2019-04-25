@@ -78,7 +78,7 @@ get_platform() {
    echo "Ubuntu"
   elif [[ "$uname_str" ==  *"Linux"* ]]
    then
-      echo "Upboard custom Linux"
+      echo "Up board"
   elif [[ "$uname_str" ==  "MINGW64"* ]]
   then
     echo "Windows mingw64"
@@ -299,7 +299,7 @@ mkdir -p "$UNIT_TEST_MODEL_PATH"
 cp "$UNIT_TEST_MODEL" "$UNIT_TEST_MODEL_PATH"
 cd $BUILD_PATH
 make all test -j2
-chmod +x "$START_SCRIPT"
+chmod u+x "$START_SCRIPT"
 EOF
 
 echo " **** Completed Configuration/Build ***"
