@@ -30,7 +30,9 @@ CMAKE_PLATFORM_SPECIFIC=(-DKITTAI_KEY_WORD_DETECTOR=ON \
     -DKITTAI_KEY_WORD_DETECTOR_INCLUDE_DIR="$THIRD_PARTY_PATH/snowboy/include")
 
 GSTREAMER_AUDIO_SINK="alsasink"
-NGHTTP2_DIR="nghttp2"
+NGHTTP2_DIR="$THIRD_PARTY_PATH/nghttp2"
+KITTAI_DIR="$THIRD_PARTY_PATH/snowboy"
+CURL_DIR="$THIRD_PARTY_PATH/curl-7.54.0"
 KITTAI_RES="$THIRD_PARTY_PATH/snowboy/resources"
 
 install_dependencies() {
@@ -38,7 +40,7 @@ install_dependencies() {
   sudo apt-get install -y g++ \
   make binutils autoconf automake autotools-dev libtool \
   pkg-config zlib1g-dev libcunit1-dev libssl-dev libxml2-dev libev-dev \
-  libevent-dev libjansson-dev libjemalloc-dev cython python3-dev \
+  libevent-dev libjansson-dev libjemalloc-dev cython python3-dev sqlite3 libsqlite3-dev\
   python-setuptools portaudio19-dev libgtest-dev openjdk-8-jdk libgstreamer-plugins-base1.0-dev \
   python-pyaudio python3-pyaudio sox libatlas-base-dev python3-pip python-pip && pip install pyaudio
 }
@@ -46,6 +48,7 @@ install_dependencies() {
 run_os_specifics() {
   build_port_audio
   build_kwd_engine
+  build_gtest
   configure_sound
   build_nghttp2
   configure_nghttp2
@@ -77,8 +80,12 @@ build_kwd_engine() {
   echo "==============> CLONING AND BUILDING KittAI =============="
   echo
 
+if [ -e "$KITTAI_DIR" ]
+ then
+ echo "======'snowboy' already exists and is not an empty directory ====SKIP===="
+else
   cd $THIRD_PARTY_PATH
-  sudo git clone https://github.com/Kitt-AI/snowboy.git
+  git clone https://github.com/Kitt-AI/snowboy.git
 
   #Compile a supported swig version (3.0.10 or above)
   wget http://downloads.sourceforge.net/swig/swig-3.0.10.tar.gz
@@ -101,18 +108,31 @@ build_kwd_engine() {
   cp common.res $KITTAI_RES/models
   cd $KITTAI_RES
   cp *.wav $KITTAI_RES/models
+fi
+
+}
+
+build_gtest() {
+# compile and build gest
+  echo
+  echo "==============> CLONING AND BUILDING NGHTTP2 =============="
+  echo
+
+ cd  /usr/src/gtest
+ sudo cmake CMakeLists.txt
+ sudo make
+ sudo cp *.a /usr/lib/
 }
 
 build_nghttp2() {
   #get nghttp2 and build
   echo
-  echo "==============> CLONING AND BUILDING NGHTTP2 =============="
-  echo
+ echo "==============> CLONING AND BUILDING NGHTTP2 =============="
+ echo
 
 if [ -e "$NGHTTP2_DIR" ]
- then
- echo "======'nghttp2' already exists and is not an empty directory ====SKIP===="
-else
+    thenecho "======'nghttp2' already exists and is not an empty directory ====SKIP===="
+    else
  cd $THIRD_PARTY_PATH
  git clone https://github.com/tatsuhiro-t/nghttp2.git
 
@@ -129,14 +149,15 @@ fi
 }
 
 configure_nghttp2() {
-  #Download the latest version of curl and configure with support for nghttp2 and openssl:
-  echo
-  echo "==============> CONFIGURE NGHTTP2 =============="
-  echo
-if [ -e "$NGHTTP2_DIR" ]
- then
- echo "======'nghttp2' already exists and is not an empty directory ====SKIP===="
-else
+ #Download the latest version of curl and configure with support for nghttp2 and openssl:
+ echo
+ echo "==============> CONFIGURE NGHTTP2 =============="
+ echo
+
+if [ -e "$CURL_DIR_DIR" ]
+    then
+echo "======'curl' already exists and is not an empty directory ====SKIP===="
+    else
  cd $THIRD_PARTY_PATH
  wget http://curl.haxx.se/download/curl-7.54.0.tar.bz2
  tar -xvjf curl-7.54.0.tar.bz2 
@@ -153,13 +174,13 @@ else
  #Make symbolic link for libcurl
  sudo ln -fs /usr/lib/libcurl.so.4 /usr/local/lib/
  sudo ldconfig
-fi
+ fi
 
 }
 
 generate_start_script() {
   cat << EOF > "$START_SCRIPT"
-  cd "$BUILD_PATH/SampleApp/src"
+ cd "$BUILD_PATH/SampleApp/src"
 
   ./SampleApp "$OUTPUT_CONFIG_FILE" "$KITTAI_RES/snowboy/resources/models" DEBUG9
 EOF

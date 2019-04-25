@@ -76,9 +76,9 @@ get_platform() {
   if [[ "$uname_str" ==  *"Ubuntu"* ]]
   then
    echo "Ubuntu"
-  elif [[ "$uname_str" ==  "Linux "* ]] 
+  elif [[ "$uname_str" ==  *"Linux"* ]]
    then
-      echo "Raspberry pi"
+      echo "Upboard custom Linux"
   elif [[ "$uname_str" ==  "MINGW64"* ]]
   then
     echo "Windows mingw64"
@@ -143,9 +143,9 @@ PLATFORM=${PLATFORM:-$(get_platform)}
 if [ "$PLATFORM" == "Ubuntu" ]
 then
   source ubuntu.sh
-elif [ "$PLATFORM" == "Raspberry pi" ]
+elif [ "$PLATFORM" == "Up board" ]
 then
-  source pi.sh
+  source ubuntu.sh
 elif [ "$PLATFORM" == "Windows mingw64" ]
 then
   source mingw.sh
