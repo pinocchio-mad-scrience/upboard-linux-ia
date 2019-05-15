@@ -32,6 +32,7 @@ sudo cmake -DCMAKE_BUILD_TYPE=Release ../
 sudo make -j4 
 sudo make install
 
+echo "Install completed"
 
 
 
