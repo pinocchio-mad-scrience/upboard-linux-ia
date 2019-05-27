@@ -26,4 +26,4 @@ for i in range(512):
       GPIO.output(control_pins[pin], halfstep_seq[halfstep][pin])
     time.sleep(0.001)
 
-GPIO.cleanup()
+#GPIO.cleanup()

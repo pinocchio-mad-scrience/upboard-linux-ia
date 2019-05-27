@@ -54,7 +54,7 @@ sudo apt-get install -y build-essential cmake git libgtk2.0-dev pkg-config libav
 libavformat-dev libswscale-dev python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev \
 libpng-dev libtiff-dev libdc1394-22-dev
 
-mkdir -p ~/code && cd ~/code
+mkdir -p ~/code && chmod 777 ~/code && cd ~/code
 git clone https://github.com/opencv/opencv.git
 git clone https://github.com/opencv/opencv_contrib.git
 cd opencv && git checkout 3.4.2 && cd ..
@@ -84,12 +84,54 @@ echo "# cd build"
 echo "# cmake .."
 echo "# make -j4"
 
-export CPU_EXTENSION_LIB=/opt/intel/openvino_*/deployment_tools/inference_engine/samples/build/intel64/Release/lib/libcpu_extension.so
-export GFLAGS_LIB=/opt/intel/openvino_*/deployment_tools/inference_engine/samples/build/intel64/Release/lib/libgflags_nothreads.a
+# Install OpenCL Driver for GPU
+cd ~/code
+wget http://registrationcenter-download.intel.com/akdlm/irc_nas/11396/SRB5.0_linux64.zip
+unzip SRB5.0_linux64.zip -d SRB5.0_linux64
+cd SRB5.0_linux64
+sudo apt-get install xz-utils
+mkdir intel-opencl
+tar -C intel-opencl -Jxf intel-opencl-r5.0-63503.x86_64.tar.xz
+tar -C intel-opencl -Jxf intel-opencl-devel-r5.0-63503.x86_64.tar.xz
+tar -C intel-opencl -Jxf intel-opencl-cpu-r5.0-63503.x86_64.tar.xz
+sudo cp -R intel-opencl/* /
+sudo ldconfig
+
+sudo mkdir /opt/openvino_toolkit/
+
+# Install Deep Learning Deployment Toolkit
+mkdir ~/code && cd ~/code
+git clone https://github.com/opencv/dldt.git
+cd dldt/inference-engine/
+git checkout 2018_R5
+git submodule init
+git submodule update --recursive
+cp -r $HOME/upboard-linux-ia/ubuntu/ros2/scripts/dldt/install_dependencies.sh ~/code/dldt/inference-engine/
+./install_dependencies.sh
+mkdir build && cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_GNA=OFF ..
+make -j8
+sudo mkdir -p /opt/openvino_toolkit
+sudo ln -sf ~/code/dldt /opt/openvino_toolkit/dldt
+
+# Install Open Model Zoo
+cd ~/code
+git clone https://github.com/opencv/open_model_zoo.git
+cd open_model_zoo/demos/
+git checkout 2018_R5
+mkdir build && cd build
+cmake -DCMAKE_BUILD_TYPE=Release /opt/openvino_toolkit/dldt/inference-engine -DENABLE_GNA=OFF
+make -j8
+sudo mkdir -p /opt/openvino_toolkit
+sudo ln -sf ~/code/open_model_zoo /opt/openvino_toolkit/open_model_zoo
+
+export CPU_EXTENSION_LIB=/opt/openvino_toolkit/deployment_tools/inference_engine/samples/build/intel64/Release/lib/libcpu_extension.so
+export GFLAGS_LIB=/opt/openvino_toolkit/deployment_tools/inference_engine/samples/build/intel64/Release/lib/libgflags_nothreads.a
 
 # set ENV CPU_EXTENSION_LIB and GFLAGS_LIB
-echo "export CPU_EXTENSION_LIB=/opt/intel/openvino_*/deployment_tools/inference_engine/samples/build/intel64/Release/lib/libcpu_extension.so" >> ~/.bashrc
-echo "export GFLAGS_LIB=/opt/intel/openvino_*/deployment_tools/inference_engine/samples/build/intel64/Release/lib/libgflags_nothreads.a" >> ~/.bashrc
+echo "export CPU_EXTENSION_LIB=$HOME/code/dldt/inference-engine/bin/intel64/Release/lib/libcpu_extension.so" >> ~/.bashrc
+echo "export GFLAGS_LIB=$HOME/code/dldt/inference-engine/bin/intel64/Release/lib/libgflags_nothreads.a" >> ~/.bashrc
+
 
 # Install ROS2_OpenVINO packages
 mkdir -p ~/ros2_overlay_ws/src

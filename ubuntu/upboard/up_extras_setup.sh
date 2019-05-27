@@ -31,21 +31,9 @@ sudo usermod -a -G i2c ${USER}
 # uart
 sudo usermod -a -G dialout ${USER}
 
-# Create Swap file
-sudo fallocate -l 6.5G swapfile
-sudo dd if=/dev/zero of=swapfile bs=6656 count=1048576
-
-# Set the correct permissions
-sudo chmod 600 swapfile
-
-# Permanent set up a Linux swap area to persist across reboots
-sudo mkswap swapfile
-sudo swapon swapfile
-echo "/media/keya87/83280304-3895-4e4c-b64d-43aea22bc2d0/swapfile swap swap defaults 0 0" >> /etc/fstab
-
-# Verify the swap status
-sudo swapon --show
-sudo free -h
+# Install rpi-gpio for UP board
+wget http://ubilinux.org/ubilinux/pool/main/r/rpi-gpio/python-rpi.gpio_0.6.3%2Bubi1-1_amd64.deb
+dpkg -i python-rpi.gpio_0.6.3%2Bubi1-1_amd64.deb
 
 # Adjust the swappiness value
 sudo sysctl vm.swappiness=10
@@ -63,4 +51,4 @@ sudo apt dist-upgrade -y
 echo "Install Completed/n"
 echo "Now reboot the system in 10 seconds"
 sleep 10
-sudo reboot 
+sudo reboot
