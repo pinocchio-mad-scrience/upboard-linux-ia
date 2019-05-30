@@ -669,6 +669,9 @@ function install_caffe()
     echo "Compiling Caffe..."
     mkdir -p build
     cd build
+    # Workaround for python lib linking
+    cp -r $HOME/upboard-linux-ia/ubuntu/ncsdk/script/Dependencies.cmake /opt/movidius/ssd-caffe/cmake
+
     eval cmake .. $STDOUT_QUIET
     eval make -j $MAKE_NJOBS all $STDOUT_QUIET
 

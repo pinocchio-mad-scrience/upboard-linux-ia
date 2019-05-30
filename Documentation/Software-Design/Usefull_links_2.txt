@@ -1,0 +1,12 @@
+https://www.bouvet.no/bouvet-deler/adding-ai-to-edge-devices-with-the-movidius-neural-compute-stick
+https://movidius.github.io/blog/ncs-apps-on-rpi/
+https://software.intel.com/en-us/articles/get-started-with-neural-compute-stick
+https://github.com/movidius/ncappzoo
+https://www.pyimagesearch.com/2018/02/19/real-time-object-detection-on-the-raspberry-pi-with-the-movidius-ncs/
+http://inmoov.fr/head-3/
+https://www.thegeekstuff.com/2016/03/cryptsetup-lukskey/
+https://gpiozero.readthedocs.io/en/stable/recipes.html
+https://www.hackster.io/mjrobot/playing-with-electronics-rpi-gpio-zero-library-tutorial-f984c9
+https://www.raspberrypi-spy.co.uk/2012/07/stepper-motor-control-in-python/
+http://ubilinux.org/ubilinux/pool/main/r/rpi-gpio/
+

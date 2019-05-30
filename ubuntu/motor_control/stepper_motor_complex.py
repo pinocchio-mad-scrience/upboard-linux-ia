@@ -13,7 +13,7 @@ stepPins = [IN1,IN2,IN3,IN4]
 
 for pin in stepPins:
   GPIO.setup(pin, GPIO.OUT)
-  GPIO.output(pin, 0)
+  GPIO.output(pin, False)
 
 stepDir = 1        # Set to 1 for clockwise
                            # Set to -1 for anti-clockwise
